@@ -1,0 +1,57 @@
+---
+/**
+ * Icon — renders a Lucide icon as inline SVG (server-rendered).
+ * Accepts kebab-case names: "shield-check", "key-round", etc.
+ * Maps to PascalCase keys in lucide v0.469+.
+ */
+import { icons, type IconNode } from 'lucide';
+
+interface Props {
+  name: string;
+  size?: number;
+  stroke?: number;
+  class?: string;
+}
+
+const { name, size = 18, stroke = 1.6, class: className = '' } = Astro.props;
+
+// kebab-case → PascalCase (e.g. "shield-check" → "ShieldCheck")
+const pascal = name
+  .split('-')
+  .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+  .join('');
+
+const node = icons[pascal] as IconNode | undefined;
+if (!node) {
+  throw new Error(`Icon "${name}" (${pascal}) not found in lucide`);
+}
+
+const [, attrs, children] = node;
+const svgAttrs = {
+  ...(attrs as Record<string, string | number>),
+  width: size,
+  height: size,
+  'stroke-width': stroke,
+  class: className,
+  'aria-hidden': 'true',
+};
+
+const escapeAttr = (value: string | number) =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+// Lucide nodes can be path, line, polyline, circle, rect, etc. Preserve all attrs.
+const inner = (children as Array<[string, Record<string, string | number>]>)
+  .map(([tag, a]) => {
+    const attrsText = Object.entries(a)
+      .map(([key, value]) => `${key}="${escapeAttr(value)}"`)
+      .join(' ');
+    return `<${tag} ${attrsText}/>`;
+  })
+  .join('');
+---
+
+<svg {...svgAttrs} set:html={inner} />

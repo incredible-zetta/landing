@@ -1,0 +1,52 @@
+---
+import Icon from '../lib/Icon.astro';
+import { HERO } from '../lib/data';
+import TrustColumn from './TrustColumn.astro';
+import DashboardMock from './DashboardMock.astro';
+import MascotColumn from './MascotColumn.astro';
+---
+
+<header class="container-page relative pb-8 pt-10 text-center sm:pt-12">
+  <span
+    data-hero-reveal
+    class="mx-auto mb-5 inline-flex items-center gap-2.5 rounded-[var(--radius-pill)] border border-[color:var(--color-border)] bg-[rgba(17,22,42,.82)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[.12em] text-[color:var(--color-text-secondary)] shadow-[0_0_28px_rgba(123,92,255,.12)] backdrop-blur-md"
+  >
+    {HERO.eyebrow}
+  </span>
+
+  <h1 data-hero-reveal class="hero-headline headline-balance mx-auto mb-4 max-w-[840px]">
+    {HERO.titleA} <span class="headline-accent">{HERO.titleGradient}</span> {HERO.titleB}
+  </h1>
+
+  <p data-hero-reveal class="mx-auto mb-6 max-w-[640px] text-[16px] leading-[1.55] text-[color:var(--color-text-secondary)] sm:text-[18px]">
+    {HERO.sub}
+  </p>
+
+  <div data-hero-reveal class="flex flex-col justify-center gap-3.5 sm:flex-row sm:flex-wrap">
+    <a class="btn btn-primary btn-lg" href={HERO.primary.href}>
+      <Icon name="rocket" size={18} /> {HERO.primary.label}
+    </a>
+    <a class="btn btn-secondary btn-lg" href={HERO.secondary.href}>
+      <Icon name="github" size={18} /> {HERO.secondary.label}
+    </a>
+  </div>
+
+  <!-- Hero stage: trust | dashboard | mascot.
+       < sm : stack full-width
+       sm–lg : 3-col compact (trust + dashboard, mascot below)
+       lg+ : full 3-col -->
+  <div data-hero-reveal class="hero-stage mx-auto mt-10 grid max-w-[1120px] grid-cols-1 items-start gap-4 sm:grid-cols-[180px_minmax(0,1fr)] sm:items-start lg:grid-cols-[220px_minmax(0,680px)_220px] lg:justify-center lg:gap-5">
+    <div class="hidden sm:block">
+      <TrustColumn />
+    </div>
+    <DashboardMock />
+    <div class="hidden lg:flex lg:items-start lg:justify-center">
+      <MascotColumn />
+    </div>
+  </div>
+
+  <!-- Trust badges inline on mobile (where trust column is hidden) -->
+  <div class="mt-5 sm:hidden">
+    <TrustColumn />
+  </div>
+</header>

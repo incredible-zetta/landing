@@ -1,0 +1,104 @@
+---
+import Icon from '../lib/Icon.astro';
+import { WHY } from '../lib/data';
+---
+
+<section id="why" class="container-page py-14">
+  <h2 class="m-0 mb-1.5 text-[28px] font-bold tracking-[-0.02em] text-[color:var(--color-text-primary)] sm:text-[32px]">
+    Why <span class="gradient-text">self-hosted</span> matters
+  </h2>
+
+  <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+    {WHY.map((w) => (
+      <article class="why-card">
+        <span class="why-card__icon ic" style="--ic-size: 28px;">
+          <Icon name={w.icon as any} size={28} />
+        </span>
+        <div class="min-w-0">
+          <h3 class="why-card__title">{w.title}</h3>
+          <p class="why-card__body">
+            {w.highlight ? (
+              <>
+                <span class="text-[color:var(--secondary)]">{w.highlight}</span> {w.desc.replace(w.highlight, '')}
+              </>
+            ) : (
+              w.desc
+            )}
+          </p>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .why-card {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    min-height: 124px;
+    padding: 20px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+  }
+
+  .why-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-lg);
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+
+  .why-card__title {
+    margin: 0 0 8px;
+    color: var(--color-text-primary);
+    font-size: 15px;
+    line-height: 1.28;
+    font-weight: 650;
+    letter-spacing: 0.005em;
+  }
+
+  .why-card__body {
+    margin: 0;
+    max-width: 34ch;
+    color: color-mix(in oklab, var(--color-text-muted) 72%, var(--color-text-secondary));
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  @media (min-width: 640px) and (max-width: 1535px) {
+    .why-card {
+      min-height: 116px;
+      padding: 18px 20px;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .why-card {
+      align-items: flex-start;
+      gap: 14px;
+      min-height: auto;
+      padding: 18px;
+    }
+    .why-card__icon {
+      width: 48px;
+      height: 48px;
+    }
+    .why-card__icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    .why-card__title {
+      font-size: 14px;
+    }
+    .why-card__body {
+      font-size: 12.5px;
+    }
+  }
+</style>

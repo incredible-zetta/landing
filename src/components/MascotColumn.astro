@@ -1,0 +1,29 @@
+---
+import Icon from '../lib/Icon.astro';
+---
+
+<div class="relative flex items-end justify-center self-stretch" data-mascot>
+  <img
+    src="/zetta-mascot-portrait.png"
+    alt="Zetta assistant mascot"
+    class="w-[280px] max-w-none opacity-90 mix-blend-screen lg:w-[300px]"
+    style="filter: drop-shadow(0 0 56px rgba(123,92,255,.42)); mask-image: radial-gradient(circle at 50% 36%, #000 0 58%, rgba(0,0,0,.82) 74%, transparent 96%); -webkit-mask-image: radial-gradient(circle at 50% 36%, #000 0 58%, rgba(0,0,0,.82) 74%, transparent 96%);"
+  />
+
+  <div
+    data-reveal
+    class="absolute bottom-1.5 left-[-18px] w-[230px] rounded-[var(--radius-lg)] border bg-[color:var(--color-surface)] p-3.5 text-left backdrop-blur-xl"
+    style="border-color: color-mix(in oklab, var(--color-primary) 35%, transparent); background: color-mix(in oklab, var(--color-surface) 78%, transparent);"
+    style="box-shadow: var(--shadow-glow-card);"
+  >
+    <div class="mb-1.5 flex items-center gap-1.5 text-[13px] font-bold text-[color:var(--color-text-primary)]">
+      <span class="ic text-[color:var(--accent-cyan)]" style="--ic-size: 15px;">
+        <Icon name="sparkles" size={15} />
+      </span>
+      Zetta
+    </div>
+    <p class="m-0 text-[12px] leading-[1.45] text-[color:var(--color-text-secondary)]">
+      Your data stays yours. Focus on building great agents.
+    </p>
+  </div>
+</div>

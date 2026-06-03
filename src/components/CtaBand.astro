@@ -1,0 +1,26 @@
+---
+import Icon from '../lib/Icon.astro';
+import { CTA_BAND } from '../lib/data';
+---
+
+<section class="container-page">
+  <div
+    class="mb-[60px] mt-5 rounded-[var(--radius-2xl)] border border-[color:var(--color-primary)] bg-[color:var(--color-surface)] px-6 py-12 text-center sm:px-12"
+    style="border-color: color-mix(in oklab, var(--color-primary) 35%, transparent); box-shadow: var(--shadow-glow-card);"
+  >
+    <h2 class="cta-headline headline-balance mx-auto mb-2.5 max-w-[760px]">
+      {CTA_BAND.titleA} <span class="headline-accent">{CTA_BAND.titleGradient}</span>
+    </h2>
+    <p class="mx-auto mb-6 max-w-[480px] text-[15px] text-[color:var(--color-text-secondary)]">
+      {CTA_BAND.sub}
+    </p>
+    <div class="mx-auto flex w-full max-w-[340px] flex-col justify-center gap-3.5 sm:max-w-none sm:flex-row sm:flex-wrap">
+      <a class="btn btn-primary btn-lg w-full sm:w-auto" href={CTA_BAND.primary.href}>
+        <Icon name="rocket" size={18} /> {CTA_BAND.primary.label}
+      </a>
+      <a class="btn btn-secondary btn-lg w-full sm:w-auto" href={CTA_BAND.secondary.href}>
+        <Icon name="book-open" size={18} /> {CTA_BAND.secondary.label}
+      </a>
+    </div>
+  </div>
+</section>

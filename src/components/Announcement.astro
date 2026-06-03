@@ -1,0 +1,22 @@
+---
+import Icon from '../lib/Icon.astro';
+import { ANNOUNCEMENT } from '../lib/data';
+---
+
+<div class="border-b border-[color:var(--color-border)] bg-[color:var(--color-primary-soft)] backdrop-blur-md">
+  <div class="container-page flex flex-wrap items-center justify-center gap-x-3 gap-y-1 py-2.5 text-[13px] text-[color:var(--color-text-secondary)]">
+    <span class="flex items-center gap-2">
+      <Icon name="sparkles" size={14} class="text-[color:var(--color-accent-cyan)]" />
+      <span>
+        <b class="font-semibold text-[color:var(--color-text-primary)]">{ANNOUNCEMENT.text}</b>
+        {' '}{ANNOUNCEMENT.suffix}
+      </span>
+    </span>
+    <a
+      href={ANNOUNCEMENT.href}
+      class="inline-flex items-center gap-1 rounded-[var(--radius-sm)] py-1 font-semibold text-[color:var(--color-secondary)] transition hover:text-[color:var(--color-primary)]"
+    >
+      {ANNOUNCEMENT.cta} <Icon name="arrow-right" size={14} />
+    </a>
+  </div>
+</div>

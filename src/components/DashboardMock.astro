@@ -1,0 +1,138 @@
+---
+import Icon from '../lib/Icon.astro';
+import { DM_NAV, DM_STATS, DM_AGENTS, DM_CHART, DM_AXIS } from '../lib/data';
+
+const W = 360;
+const H = 96;
+const max = 6;
+const step = W / (DM_CHART.length - 1);
+const pts = DM_CHART.map((d, i) => [i * step, H - (d / max) * (H - 8) - 4] as const);
+const line = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+const area = `${line} L ${W} ${H} L 0 ${H} Z`;
+const maxAgent = Math.max(...DM_AGENTS.map((a) => a.value));
+---
+
+<div
+  data-dashboard-mock
+  class="dashboard-mock relative grid min-h-[420px] grid-cols-1 overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--color-border)] bg-[rgba(13,17,32,.92)] text-left sm:min-h-0 sm:grid-cols-[120px_1fr]"
+  style="box-shadow: var(--shadow-lg), 0 0 70px rgba(123,92,255,.18);"
+>
+  <!-- Sidebar -->
+  <div class="hidden flex-col gap-px border-r border-[color:var(--color-border)] bg-[rgba(11,15,28,.7)] px-2 py-2.5 sm:flex">
+    <div class="flex items-center gap-1.5 px-1 pb-2.5">
+      <img src="/zetta-mark.png" alt="Z" class="h-[15px] w-auto rounded-sm" />
+      <b class="text-[11px] font-bold text-[color:var(--color-text-primary)]">Zetta CRM</b>
+    </div>
+    {DM_NAV.map(([ic, label, on]) => (
+      <div
+        data-reveal
+        class={`flex items-center gap-1.5 rounded-md px-1.5 py-1.5 text-[8.5px] font-medium transition sm:px-2 sm:text-[9.5px] ${on ? 'bg-[color:var(--color-primary-soft)] text-[color:var(--color-text-primary)]' : 'text-[color:var(--color-text-muted)]'}`}
+      >
+        <span class="ic" style={`--ic-size: 12px; color: ${on ? 'var(--color-primary)' : 'currentColor'}`}>
+          <Icon name={ic as any} size={12} />
+        </span>
+        {label}
+      </div>
+    ))}
+  </div>
+
+  <!-- Main -->
+  <div class="flex min-w-0 flex-col gap-2 px-3 py-2.5 max-sm:absolute max-sm:inset-0 max-sm:origin-top max-sm:scale-[.72] max-sm:px-3 max-sm:py-3">
+    <!-- Top bar -->
+    <div class="flex items-center gap-2">
+      <h2 class="m-0 text-[12px] font-semibold text-[color:var(--color-text-primary)]">Overview</h2>
+      <div class="hidden flex-1 items-center gap-1.5 rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface)] px-2 py-1 text-[9px] text-[color:var(--color-text-muted)] sm:flex">
+        <Icon name="search" size={11} />
+        Search contacts, accounts, agents…
+      </div>
+      <div class="flex h-[18px] w-[18px] items-center justify-center rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface)] text-[color:var(--color-text-muted)]">
+        <Icon name="sun" size={10} />
+      </div>
+      <div class="flex h-[18px] w-[18px] items-center justify-center rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface)] text-[color:var(--color-text-muted)]">
+        <Icon name="bell" size={10} />
+      </div>
+      <div
+        class="h-[18px] w-[18px] rounded-full border border-[color:var(--color-border)] bg-[url('/zetta-mascot-portrait.png')] bg-cover"
+        style="background-position: center top;"
+      ></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+      {DM_STATS.map(([k, n, d]) => (
+        <div data-reveal class="rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface-elevated)] p-2">
+          <div class="flex items-center justify-between gap-1 text-[8px] text-[color:var(--color-text-muted)]">
+            <span>{k}</span>
+            <span class="inline-flex items-center gap-0.5 font-bold text-[color:var(--color-success)]">
+              <Icon name="trending-up" size={9} />{d}
+            </span>
+          </div>
+          <div class="mt-0.5 text-[16px] font-bold tracking-[-0.02em] text-[color:var(--color-text-primary)]">{n}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Panels -->
+    <div class="grid grid-cols-1 gap-1.5 sm:grid-cols-[1.55fr_1fr]">
+      <!-- Chart -->
+      <div class="rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface-elevated)] p-2.5">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-[9px] font-semibold text-[color:var(--color-text-primary)]">Conversations</div>
+            <div class="text-[7.5px] text-[color:var(--color-text-muted)]">Last 7 days</div>
+          </div>
+          <div class="flex items-center gap-1 rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface)] px-1.5 py-0.5 text-[7.5px] text-[color:var(--color-text-secondary)]">
+            By Day <Icon name="chevron-down" size={9} />
+          </div>
+        </div>
+        <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" class="mt-1.5 block h-[70px] w-full">
+          <defs>
+            <linearGradient id="dmc" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(123,92,255,.4)" />
+              <stop offset="100%" stop-color="rgba(123,92,255,0)" />
+            </linearGradient>
+            <linearGradient id="dms" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#7B5CFF" />
+              <stop offset="100%" stop-color="#4F8CFF" />
+            </linearGradient>
+          </defs>
+          <path d={area} fill="url(#dmc)" />
+          <path d={line} fill="none" stroke="url(#dms)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div class="mt-1 flex justify-between text-[6.5px] text-[color:var(--color-text-muted)]">
+          {DM_AXIS.map((a) => <span>{a}</span>)}
+        </div>
+      </div>
+
+      <!-- Top agents -->
+      <div class="rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface-elevated)] p-2.5">
+        <div>
+          <div class="text-[9px] font-semibold text-[color:var(--color-text-primary)]">Top AI Agents</div>
+          <div class="text-[7.5px] text-[color:var(--color-text-muted)]">By conversations</div>
+        </div>
+        <div class="mt-1 flex flex-col">
+          {DM_AGENTS.map((a) => (
+            <div class="flex items-center gap-1.5 py-1.5">
+              <div
+                class="h-[16px] w-[16px] flex-shrink-0 rounded-full border border-[color:var(--color-border)] bg-[url('/zetta-mascot-portrait.png')] bg-cover"
+                style={`background-position: center top; filter: hue-rotate(${a.hue}deg);`}
+              ></div>
+              <div class="min-w-0 flex-1">
+                <div class="text-[8.5px] text-[color:var(--color-text-secondary)]">{a.name}</div>
+                <div class="mt-0.5 h-[3px] overflow-hidden rounded-sm bg-[color:var(--color-surface)]">
+                  <i
+                    class="block h-full"
+                    style={`width: ${(a.value / maxAgent) * 100}%; background: var(--grad-purple-blue);`}
+                  ></i>
+                </div>
+              </div>
+              <div class="text-[8.5px] font-bold tabular-nums text-[color:var(--color-text-primary)]">
+                {a.value.toLocaleString()}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

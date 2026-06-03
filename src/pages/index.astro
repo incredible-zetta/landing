@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Announcement from '../components/Announcement.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import DeployRail from '../components/DeployRail.astro';
+import WhySelfHosted from '../components/WhySelfHosted.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Announcement />
+  <Navbar />
+  <main>
+    <Hero />
+    <Features />
+    <DeployRail />
+    <WhySelfHosted />
+    <CtaBand />
+  </main>
+  <Footer />
+</BaseLayout>
