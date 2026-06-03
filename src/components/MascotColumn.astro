@@ -2,28 +2,45 @@
 import Icon from '../lib/Icon.astro';
 ---
 
-<div class="relative flex items-end justify-center self-stretch" data-mascot>
+<div class="relative flex min-h-[320px] items-start justify-center self-stretch pt-2 lg:min-h-[460px] lg:pt-0" data-mascot>
   <img
     src="/zetta-mascot-portrait.png"
     alt="Zetta assistant mascot"
-    class="w-[280px] max-w-none opacity-90 mix-blend-screen lg:w-[300px]"
-    style="filter: drop-shadow(0 0 56px rgba(123,92,255,.42)); mask-image: radial-gradient(circle at 50% 36%, #000 0 58%, rgba(0,0,0,.82) 74%, transparent 96%); -webkit-mask-image: radial-gradient(circle at 50% 36%, #000 0 58%, rgba(0,0,0,.82) 74%, transparent 96%);"
+    width="500"
+    height="500"
+    class="w-[300px] max-w-none opacity-80 mix-blend-screen sm:w-[360px] lg:w-[430px]"
+    style="filter: drop-shadow(0 0 30px color-mix(in oklab, var(--color-primary) 16%, transparent));"
   />
 
   <div
     data-reveal
-    class="absolute bottom-1.5 left-[-18px] w-[230px] rounded-[var(--radius-lg)] border bg-[color:var(--color-surface)] p-3.5 text-left backdrop-blur-xl"
-    style="border-color: color-mix(in oklab, var(--color-primary) 35%, transparent); background: color-mix(in oklab, var(--color-surface) 78%, transparent);"
-    style="box-shadow: var(--shadow-glow-card);"
+    class="absolute bottom-3 left-1/2 min-h-[118px] w-[300px] -translate-x-1/2 rounded-[var(--radius-lg)] border border-[color:var(--color-primary)] bg-[color:var(--color-surface-elevated)] p-4 text-left shadow-[var(--shadow-glow-card)] sm:w-[360px] lg:bottom-7 lg:min-h-[128px] lg:w-[430px]"
   >
-    <div class="mb-1.5 flex items-center gap-1.5 text-[13px] font-bold text-[color:var(--color-text-primary)]">
-      <span class="ic text-[color:var(--accent-cyan)]" style="--ic-size: 15px;">
+    <div class="mb-2 flex items-center gap-1.5 text-[13px] font-bold text-[color:var(--color-text-primary)]">
+      <span class="ic text-[color:var(--color-primary)]" style="--ic-size: 15px;">
         <Icon name="sparkles" size={15} />
       </span>
-      Zetta
+      Zetta Assistant
     </div>
-    <p class="m-0 text-[12px] leading-[1.45] text-[color:var(--color-text-secondary)]">
-      Your data stays yours. Focus on building great agents.
+    <p class="m-0 min-h-[54px] text-[12.5px] leading-[1.55] text-[color:var(--color-text-secondary)] sm:text-[13px]" data-typing-greeting data-text="Hi, I’m Zetta. I keep your AI ops, contacts, tasks, and conversations inside your own stack.">
+      <span data-typing-output>Hi, I’m Zetta.</span><span class="typing-cursor" aria-hidden="true">|</span>
     </p>
+    <div class="mt-3 flex items-center gap-2 text-[11px] font-semibold text-[color:var(--color-primary)]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[color:var(--color-primary)]"></span>
+      Local-first CRM ready
+    </div>
   </div>
 </div>
+
+<style>
+  .typing-cursor {
+    display: inline-block;
+    margin-left: 2px;
+    color: var(--color-primary);
+    animation: typing-caret 0.85s steps(1) infinite;
+  }
+
+  @keyframes typing-caret {
+    50% { opacity: 0; }
+  }
+</style>

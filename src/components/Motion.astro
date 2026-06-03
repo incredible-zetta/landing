@@ -13,18 +13,87 @@
     gsap.defaults({ ease: 'power4.out', duration: 0.72 });
 
     requestAnimationFrame(() => {
-      gsap.timeline()
+      const seenKey = 'zetta:first-visit-story-seen';
+      const firstVisit = !sessionStorage.getItem(seenKey);
+      sessionStorage.setItem(seenKey, '1');
+
+      if (firstVisit) {
+        gsap.set('[data-dashboard-mock]', { transformOrigin: '50% 50%' });
+        gsap.set('.site-bg', { '--story-scan': '0%' });
+      }
+
+      const typingTarget = document.querySelector('[data-typing-greeting]');
+      const typingOutput = document.querySelector('[data-typing-output]');
+      const typingText = typingTarget?.getAttribute('data-text') ?? '';
+      const typeGreeting = () => {
+        if (!typingOutput || !typingText) return;
+        const state = { count: 0 };
+        gsap.to(state, {
+          count: typingText.length,
+          duration: firstVisit ? 2.4 : 1.4,
+          ease: 'none',
+          snap: { count: 1 },
+          onUpdate: () => {
+            typingOutput.textContent = typingText.slice(0, state.count);
+          },
+        });
+      };
+
+      const strikeDashboard = () => {
+        const mock = document.querySelector('[data-dashboard-mock]');
+        const bolt = document.querySelectorAll('.dashboard-lightning__bolt, .dashboard-lightning__core');
+        const shell = document.querySelector('.dashboard-lightning');
+        const impact = document.querySelector('.dashboard-impact');
+        if (!mock || !bolt.length || !shell || !impact) return;
+
+        gsap.timeline({ defaults: { ease: 'power3.out' } })
+          .set(shell, { autoAlpha: 1, rotate: -4, scale: 1.08, transformOrigin: '70% 48%' })
+          .set(bolt, { strokeDashoffset: 760 })
+          .to(bolt, { strokeDashoffset: 0, duration: 0.34, stagger: 0.02, ease: 'none' }, 0)
+          .to(impact, { autoAlpha: 1, duration: 0.1 }, 0.18)
+          .to(mock, { x: -12, y: 4, rotation: -0.55, duration: 0.07, ease: 'power1.inOut' }, 0.2)
+          .to(mock, { x: 10, y: -3, rotation: 0.42, duration: 0.075, ease: 'power1.inOut' }, 0.27)
+          .to(mock, { x: -6, y: 2, rotation: -0.24, duration: 0.065, ease: 'power1.inOut' }, 0.345)
+          .to(mock, { x: 0, y: 0, rotation: 0, duration: 0.24, ease: 'elastic.out(1, 0.45)' }, 0.42)
+          .to(impact, { autoAlpha: 0, duration: 0.42 }, 0.3)
+          .to(shell, { autoAlpha: 0, scale: 1.02, duration: 0.35 }, 0.48);
+      };
+
+      const heroTimeline = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+      if (firstVisit) {
+        heroTimeline
+          .fromTo('.site-bg',
+            { '--story-scan': '0%' },
+            { '--story-scan': '100%', duration: 1.05, ease: 'expo.out' },
+            0
+          )
+          .fromTo('[data-dashboard-mock]',
+            { autoAlpha: 0, y: 34, scale: 0.96, filter: 'brightness(1.35) saturate(1.35)' },
+            { autoAlpha: 1, y: 0, scale: 1, filter: 'brightness(1) saturate(1)', duration: 1.05 },
+            0.16
+          )
+          .fromTo('[data-dashboard-mock] svg:not(.dashboard-lightning)',
+            { clipPath: 'inset(0 100% 0 0)' },
+            { clipPath: 'inset(0 0% 0 0)', duration: 1.1 },
+            0.42
+          )
+          .call(strikeDashboard, [], 0.92);
+      }
+
+      heroTimeline
+        .call(typeGreeting, [], firstVisit ? 0.65 : 0.2)
         .to('[data-hero-reveal]', {
           autoAlpha: 1,
           y: 0,
           scale: 1,
-          stagger: 0.08,
+          stagger: firstVisit ? 0.11 : 0.08,
           clearProps: 'visibility',
-        }, 0)
+        }, firstVisit ? 0.28 : 0)
         .fromTo('[data-hero-reveal]',
-          { y: 22, scale: 0.985 },
-          { y: 0, scale: 1, stagger: 0.08, duration: 0.82 },
-          0
+          { y: firstVisit ? 30 : 22, scale: 0.985 },
+          { y: 0, scale: 1, stagger: firstVisit ? 0.11 : 0.08, duration: firstVisit ? 0.95 : 0.82 },
+          firstVisit ? 0.28 : 0
         );
 
       gsap.to('[data-mascot] img', {

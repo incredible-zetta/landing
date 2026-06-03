@@ -11,12 +11,12 @@
 /* ---------- THEME — Zetta design tokens ---------- */
 @theme {
   /* Brand */
-  --color-primary: #7B5CFF;
-  --color-primary-hover: #8E73FF;
-  --color-primary-press: #6A49F0;
-  --color-secondary: #4F8CFF;
-  --color-accent-cyan: #00D5FF;
-  --color-accent-pink: #FF3CF7;
+  --color-primary: oklch(93.98% 0.2077 121.13);
+  --color-primary-hover: oklch(95.29% 0.1745 118.18);
+  --color-primary-press: oklch(86.46% 0.1966 121.46);
+  --color-secondary: oklch(86.46% 0.1966 121.46);
+  --color-accent-cyan: oklch(93.98% 0.2077 121.13);
+  --color-accent-pink: oklch(95.29% 0.1745 118.18);
 
   /* Surfaces */
   --color-bg: #0B0F1C;
@@ -37,10 +37,10 @@
   --color-success: #22D3A1;
   --color-warning: #F5C542;
   --color-danger: #FF5C7C;
-  --color-info: #4F8CFF;
+  --color-info: oklch(93.98% 0.2077 121.13);
 
   /* Soft fills (chips/badges) */
-  --color-primary-soft: rgba(123, 92, 255, .14);
+  --color-primary-soft: color-mix(in oklab, var(--color-primary) 16%, transparent);
   --color-success-soft: rgba(34, 211, 161, .14);
   --color-warning-soft: rgba(245, 197, 66, .14);
   --color-danger-soft: rgba(255, 92, 124, .14);
@@ -85,16 +85,16 @@
 
 /* ---------- ROOT + BASE ---------- */
 :root {
-  --grad-purple-blue: linear-gradient(90deg, #7B5CFF 0%, #4F8CFF 100%);
-  --grad-blue-cyan: linear-gradient(90deg, #4F8CFF 0%, #00D5FF 100%);
-  --grad-purple-pink: linear-gradient(90deg, #7B5CFF 0%, #FF3CF7 100%);
-  --grad-indigo-glow: linear-gradient(135deg, #4F8CFF 0%, #7B5CFF 60%, #2A1C66 100%);
-  --grad-text: linear-gradient(90deg, #9B7DFF 0%, #4F8CFF 100%);
+  --grad-purple-blue: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  --grad-blue-cyan: linear-gradient(90deg, var(--color-primary-press) 0%, var(--color-primary) 100%);
+  --grad-purple-pink: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  --grad-indigo-glow: linear-gradient(135deg, #18220d 0%, var(--color-primary) 58%, #243215 100%);
+  --grad-text: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
 
-  --shadow-glow-card: 0 8px 32px rgba(11, 15, 28, .6), 0 0 0 1px rgba(123, 92, 255, .12);
-  --shadow-glow-primary: 0 6px 20px rgba(123, 92, 255, .35);
-  --shadow-glow-primary-hover: 0 8px 28px rgba(123, 92, 255, .55);
-  --focus-ring: 0 0 0 3px rgba(123, 92, 255, .45);
+  --shadow-glow-card: 0 8px 32px rgba(11, 15, 28, .6), 0 0 0 1px color-mix(in oklab, var(--color-primary) 18%, transparent);
+  --shadow-glow-primary: 0 6px 20px color-mix(in oklab, var(--color-primary) 34%, transparent);
+  --shadow-glow-primary-hover: 0 8px 28px color-mix(in oklab, var(--color-primary) 52%, transparent);
+  --focus-ring: 0 0 0 3px color-mix(in oklab, var(--color-primary) 44%, transparent);
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
@@ -152,10 +152,12 @@ body {
 
 /* Soft radial background wash for the whole site */
 .site-bg {
+  --story-scan: 100%;
   position: relative;
   background:
-    radial-gradient(1100px 600px at 75% 6%, rgba(123, 92, 255, .18), transparent 55%),
-    radial-gradient(900px 500px at 10% 30%, rgba(79, 140, 255, .10), transparent 55%),
+    linear-gradient(90deg, transparent 0 var(--story-scan), color-mix(in oklab, var(--color-primary) 12%, transparent) var(--story-scan), transparent calc(var(--story-scan) + 8%)),
+    radial-gradient(1100px 600px at 75% 6%, color-mix(in oklab, var(--color-primary) 18%, transparent), transparent 55%),
+    radial-gradient(900px 500px at 10% 30%, color-mix(in oklab, var(--color-primary-press) 10%, transparent), transparent 55%),
     var(--color-bg);
 }
 
@@ -192,10 +194,10 @@ body {
 }
 
 @utility gradient-text {
-  color: color-mix(in oklab, var(--color-primary-hover) 86%, var(--color-accent-cyan) 14%);
+  color: var(--color-primary);
   font: inherit;
   letter-spacing: inherit;
-  text-shadow: 0 0 28px rgba(123, 92, 255, .32);
+  text-shadow: 0 0 28px color-mix(in oklab, var(--color-primary) 34%, transparent);
 }
 
 .headline-balance {
@@ -227,10 +229,10 @@ body {
 }
 
 .headline-accent {
-  color: color-mix(in oklab, var(--color-primary-hover) 86%, var(--color-accent-cyan) 14%);
+  color: var(--color-primary);
   font: inherit;
   letter-spacing: inherit;
-  text-shadow: 0 0 28px rgba(123, 92, 255, .32);
+  text-shadow: 0 0 28px color-mix(in oklab, var(--color-primary) 34%, transparent);
 }
 
 @utility eyebrow {
@@ -277,8 +279,8 @@ body {
 
 .btn-primary {
   background: var(--grad-purple-blue);
-  color: var(--color-text-on-primary);
-  box-shadow: 0 5px 18px rgba(123, 92, 255, .28);
+  color: #11180A;
+  box-shadow: 0 5px 18px color-mix(in oklab, var(--color-primary) 28%, transparent);
 }
 .btn-primary:hover {
   box-shadow: var(--shadow-glow-primary-hover);
