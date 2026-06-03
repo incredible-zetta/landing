@@ -8,9 +8,13 @@ interface Props {
 }
 
 const {
-  title = 'Zetta CRM — The self-hosted CRM for AI operators',
-  description = 'Own your data. Run it your way. Zetta CRM is a privacy-first, self-hosted CRM built for teams that deploy and manage fleets of AI agents.',
+  title = 'Zetta CRM — Open-source MCP backend for AI agents',
+  description = 'A self-hosted Go MCP server with 28 tools: contacts, email, campaigns, tracking, scheduling, and analytics. Deploy the CRM backend your AI agents deserve.',
 } = Astro.props;
+
+const site = 'https://zettacrm.com';
+const ogImage = `${site}/og.png`;
+const canonical = Astro.url.href;
 ---
 
 <!doctype html>
@@ -19,13 +23,56 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/zetta-mark.png" />
+    <link rel="canonical" href={canonical} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="theme-color" content="#0B0F1C" />
     <meta name="description" content={description} />
+    <meta name="keywords" content="CRM, AI agents, MCP, self-hosted, open-source, Go, contacts, email, campaigns, Model Context Protocol" />
+    <meta name="author" content="Incredible Zetta" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Zetta CRM" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Zetta CRM",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Linux, Docker",
+      "description": description,
+      "url": site,
+      "image": ogImage,
+      "author": {
+        "@type": "Organization",
+        "name": "Incredible Zetta",
+        "url": "https://github.com/incredible-zetta"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "license": "https://opensource.org/licenses/MIT"
+    })} />
+
     <title>{title}</title>
   </head>
   <body>
