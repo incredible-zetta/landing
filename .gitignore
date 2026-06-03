@@ -60,5 +60,11 @@ coverage/
 .tmp/
 temp/
 
-# ---------- design reference (kept locally, not in VCS) ----------
+# ---------- design docs (local only) ----------
 reff/
+DESIGN.md
+PRODUCT.md
+
+# ---------- lock (use package-lock.json for npm) ----------
+yarn.lock
+pnpm-lock.yaml

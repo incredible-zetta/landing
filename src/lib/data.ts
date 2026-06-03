@@ -1,72 +1,71 @@
 // Zetta CRM — landing content (single source of truth)
 
 export const ANNOUNCEMENT = {
-  text: 'Zetta CRM v1.0 is here.',
-  suffix: 'Self-hosted CRM for AI operators.',
-  cta: 'Read the v1.0 announcement',
-  href: '#changelog',
+  text: 'Open-source MCP CRM for AI agents.',
+  suffix: 'Backend is ready. Operator UI is coming soon.',
+  cta: 'View repository',
+  href: 'https://github.com/incredible-zetta/crm',
 };
 
 export const NAV = {
   brand: 'Zetta CRM',
   links: [
-    { label: 'Product', href: '#features' },
+    { label: 'MCP Tools', href: '#features' },
     { label: 'Deploy', href: '#deploy' },
     { label: 'Security', href: '#why' },
     { label: 'Docs', href: '#docs' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Changelog', href: '#changelog' },
+    { label: 'GitHub', href: 'https://github.com/incredible-zetta/crm' },
   ],
-  github: { label: 'Star', count: '3.2k', href: 'https://github.com/' },
-  cta: { label: 'Get Started', href: '#get-started' },
+  github: { label: 'GitHub', count: 'Open source', href: 'https://github.com/incredible-zetta/crm' },
+  cta: { label: 'Deploy Backend', href: '#deploy' },
 };
 
 export const HERO = {
-  eyebrow: 'Privacy-First · Self-Hosted · Operator-Focused',
-  titleA: 'The',
-  titleGradient: 'self-hosted',
-  titleB: 'CRM for AI operators',
-  sub: 'Own your data. Run it your way. No data stored on vendor servers — ever.',
-  primary: { label: 'Deploy Zetta CRM', href: '#deploy' },
-  secondary: { label: 'View on GitHub', href: 'https://github.com/' },
+  eyebrow: 'Open-Source · MCP Server · Self-Hosted',
+  titleA: 'CRM backend',
+  titleGradient: 'built for',
+  titleB: 'AI agents',
+  sub: 'A Go MCP server with contacts, email, campaigns, tracking, scheduling, and analytics. Operator UI is coming soon.',
+  primary: { label: 'Deploy Backend', href: '#deploy' },
+  secondary: { label: 'View on GitHub', href: 'https://github.com/incredible-zetta/crm' },
 };
 
 export const TRUST = [
-  { icon: 'shield-check', title: '100% Self-Hosted', desc: 'You control everything.' },
-  { icon: 'lock', title: 'No Vendor Storage', desc: 'Zero data leaves your infra.' },
-  { icon: 'key-round', title: 'Privacy by Design', desc: 'Built for operators, not advertisers.' },
+  { icon: 'shield-check', title: 'Self-hosted backend', desc: 'Run CRM data in your infra.' },
+  { icon: 'terminal', title: '28 MCP tools', desc: 'Agent-ready CRM operations.' },
+  { icon: 'key-round', title: 'API-key gated', desc: 'MCP endpoint stays private.' },
 ];
 
 export const FEATURES = [
-  { icon: 'users-round', title: 'Built for AI Operators', desc: 'Manage agents, conversations, tasks, and relationships in one powerful workspace.' },
-  { icon: 'zap', title: 'Agent-Centric CRM', desc: 'Designed for AI-native workflows and multi-agent collaboration at scale.' },
-  { icon: 'boxes', title: 'Extensible & Open', desc: 'Open source core, plugin-ready, and API-first.' },
-  { icon: 'shield', title: 'Enterprise Ready', desc: 'RBAC, audit logs, encryption, and compliance-friendly by default.' },
-  { icon: 'terminal', title: 'Developer Friendly', desc: 'Clean APIs, webhooks, and SDKs to build without limits.' },
+  { icon: 'users-round', title: 'Contacts for agents', desc: 'Create, update, import, export, unsubscribe, and delete contacts through MCP tools.' },
+  { icon: 'mail', title: 'Email + templates', desc: 'Send SMTP or Mailgun email, render templates, and reuse merge variables.' },
+  { icon: 'megaphone', title: 'Campaign engine', desc: 'Create campaigns, schedule dispatches, and track delivery, opens, and clicks.' },
+  { icon: 'calendar-clock', title: 'Built-in scheduler', desc: 'Queue email and campaign tasks without another worker service.' },
+  { icon: 'bar-chart-3', title: 'Analytics overview', desc: 'Give agents compact CRM metrics without wasting context tokens.' },
 ];
 
 export const DEPLOY_RAIL = [
-  { icon: 'container', title: 'Docker', sub: 'Run anywhere' },
-  { icon: 'ship-wheel', title: 'Kubernetes', sub: 'Scale with ease' },
-  { icon: 'code-xml', title: 'API', sub: 'Integrate freely' },
-  { icon: 'database', title: 'Local DB', sub: 'Your data, local' },
-  { icon: 'network', title: 'Vector Store', sub: 'Private by default' },
-  { icon: 'bot', title: 'AI Agents', sub: 'Plug in your stack' },
+  { icon: 'container', title: 'Docker image', sub: 'One-port deploy' },
+  { icon: 'binary', title: 'Single binary', sub: 'Go backend' },
+  { icon: 'plug', title: 'MCP HTTP', sub: 'POST /mcp' },
+  { icon: 'database', title: 'MySQL', sub: 'Single database' },
+  { icon: 'mail', title: 'SMTP/Mailgun', sub: 'Email providers' },
+  { icon: 'bot', title: 'AI agents', sub: 'CRM tools ready' },
 ];
 
 export const WHY = [
-  { icon: 'lock', title: 'Total Data Ownership', desc: 'Your data never leaves your environment.' },
-  { icon: 'shield-check', title: 'Stronger Privacy', desc: 'No cross-tenant risk. No tracking. No selling.', highlight: 'No cross-tenant risk.' },
-  { icon: 'globe', title: 'Compliance Ready', desc: 'Meet internal policies and industry requirements.' },
-  { icon: 'badge-dollar-sign', title: 'No Vendor Lock-In', desc: 'Open standards. Export your data anytime.' },
+  { icon: 'lock', title: 'Own your CRM data', desc: 'Contacts, campaigns, templates, and analytics stay in your database.' },
+  { icon: 'shield-check', title: 'Private MCP endpoint', desc: 'Bearer or X-API-Key auth gates every agent tool call.', highlight: 'Bearer or X-API-Key auth' },
+  { icon: 'globe', title: 'Public tracking routes', desc: 'Click, open, and export routes work for email recipients without agent credentials.' },
+  { icon: 'badge-dollar-sign', title: 'Open-source core', desc: 'Clone, audit, deploy, and adapt the backend without vendor lock-in.' },
 ];
 
 export const CTA_BAND = {
-  titleA: 'Spin up your own private instance',
-  titleGradient: 'in minutes.',
-  sub: 'Deploy Zetta CRM on your own infrastructure and keep every byte of customer data under your control.',
-  primary: { label: 'Deploy Zetta CRM', href: '#deploy' },
-  secondary: { label: 'Read the Docs', href: '#docs' },
+  titleA: 'Connect AI agents to a real CRM backend',
+  titleGradient: 'today.',
+  sub: 'Deploy the open-source Go MCP server, point your agents at POST /mcp, and keep customer data under your control.',
+  primary: { label: 'Deploy Backend', href: '#deploy' },
+  secondary: { label: 'View GitHub', href: 'https://github.com/incredible-zetta/crm' },
 };
 
 export const DM_NAV = [
