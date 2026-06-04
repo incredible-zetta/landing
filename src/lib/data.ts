@@ -1,10 +1,10 @@
 // Zetta CRM — landing content (single source of truth)
 
 export const ANNOUNCEMENT = {
-  text: 'Open-source MCP CRM for AI agents.',
-  suffix: 'Backend is ready. Operator UI is coming soon.',
-  cta: 'View repository',
-  href: 'https://github.com/incredible-zetta/crm',
+  text: 'v0.0.1-beta is live.',
+  suffix: 'GHCR image, release notes, and cloud install wiki are ready.',
+  cta: 'Read release',
+  href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.1-beta',
 };
 
 export const NAV = {
@@ -17,7 +17,7 @@ export const NAV = {
     { label: 'GitHub', href: 'https://github.com/incredible-zetta/crm' },
   ],
   github: { label: 'GitHub', count: 'Open source', href: 'https://github.com/incredible-zetta/crm' },
-  cta: { label: 'Deploy Backend', href: '#deploy' },
+  cta: { label: 'Deploy Beta', href: '#deploy' },
 };
 
 export const HERO = {
@@ -25,9 +25,9 @@ export const HERO = {
   titleA: 'CRM backend',
   titleGradient: 'built for',
   titleB: 'AI agents',
-  sub: 'A Go MCP server with contacts, email, campaigns, tracking, scheduling, and analytics. Operator UI is coming soon.',
-  primary: { label: 'Deploy Backend', href: '#deploy' },
-  secondary: { label: 'View on GitHub', href: 'https://github.com/incredible-zetta/crm' },
+  sub: 'A Go MCP server with 28 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, and purge. v0.0.1-beta is ready to deploy.',
+  primary: { label: 'Deploy v0.0.1-beta', href: '#deploy' },
+  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.1-beta' },
 };
 
 export const TRUST = [
@@ -45,7 +45,7 @@ export const FEATURES = [
 ];
 
 export const DEPLOY_RAIL = [
-  { icon: 'container', title: 'Docker image', sub: 'One-port deploy' },
+  { icon: 'container', title: 'GHCR image', sub: 'v0.0.1-beta' },
   { icon: 'binary', title: 'Single binary', sub: 'Go backend' },
   { icon: 'plug', title: 'MCP HTTP', sub: 'POST /mcp' },
   { icon: 'database', title: 'MySQL', sub: 'Single database' },
@@ -61,11 +61,11 @@ export const WHY = [
 ];
 
 export const CTA_BAND = {
-  titleA: 'Connect AI agents to a real CRM backend',
-  titleGradient: 'today.',
-  sub: 'Deploy the open-source Go MCP server, point your agents at POST /mcp, and keep customer data under your control.',
-  primary: { label: 'Deploy Backend', href: '#deploy' },
-  secondary: { label: 'View GitHub', href: 'https://github.com/incredible-zetta/crm' },
+  titleA: 'Ship a private CRM backend for agents',
+  titleGradient: 'this hour.',
+  sub: 'Pull the beta image, point agents at POST /mcp, and keep contacts, campaigns, tracking, and exports inside your infrastructure.',
+  primary: { label: 'Open install wiki', href: 'https://github.com/incredible-zetta/crm/wiki' },
+  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.1-beta' },
 };
 
 export const DM_NAV = [
