@@ -1,10 +1,10 @@
 // Zetta CRM — landing content (single source of truth)
 
 export const ANNOUNCEMENT = {
-  text: 'v0.0.1-beta is live.',
+  text: 'v0.0.3-beta is live.',
   suffix: 'GHCR image, release notes, and cloud install wiki are ready.',
   cta: 'Read release',
-  href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.1-beta',
+  href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.3-beta',
 };
 
 export const NAV = {
@@ -25,9 +25,9 @@ export const HERO = {
   titleA: 'CRM backend',
   titleGradient: 'built for',
   titleB: 'AI agents',
-  sub: 'A Go MCP server with 28 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, and purge. v0.0.1-beta is ready to deploy.',
-  primary: { label: 'Deploy v0.0.1-beta', href: '#deploy' },
-  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.1-beta' },
+  sub: 'A Go MCP server with 28 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, and purge. v0.0.3-beta is ready to deploy.',
+  primary: { label: 'Deploy v0.0.3-beta', href: '#deploy' },
+  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.3-beta' },
 };
 
 export const TRUST = [
@@ -45,7 +45,7 @@ export const FEATURES = [
 ];
 
 export const DEPLOY_RAIL = [
-  { icon: 'container', title: 'GHCR image', sub: 'v0.0.1-beta' },
+  { icon: 'container', title: 'GHCR image', sub: 'v0.0.3-beta' },
   { icon: 'binary', title: 'Single binary', sub: 'Go backend' },
   { icon: 'plug', title: 'MCP HTTP', sub: 'POST /mcp' },
   { icon: 'database', title: 'MySQL', sub: 'Single database' },
@@ -65,7 +65,7 @@ export const CTA_BAND = {
   titleGradient: 'this hour.',
   sub: 'Pull the beta image, point agents at POST /mcp, and keep contacts, campaigns, tracking, and exports inside your infrastructure.',
   primary: { label: 'Open install wiki', href: 'https://github.com/incredible-zetta/crm/wiki' },
-  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.1-beta' },
+  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.0.3-beta' },
 };
 
 export const DM_NAV = [
