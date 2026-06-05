@@ -25,20 +25,20 @@ export const HERO = {
   titleA: 'CRM backend',
   titleGradient: 'built for',
   titleB: 'AI agents',
-  sub: 'A Go MCP server with 28 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, purge, and inbox groundwork. v0.1.0 stable is ready to deploy.',
+  sub: 'A Go MCP server with 34 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, purge, and IMAP inbox replies. v0.1.0 stable is ready to deploy.',
   primary: { label: 'Deploy v0.1.0', href: '#deploy' },
   secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.1.0' },
 };
 
 export const TRUST = [
   { icon: 'shield-check', title: 'Self-hosted backend', desc: 'Run CRM data in your infra.' },
-  { icon: 'terminal', title: '28 MCP tools', desc: 'Agent-ready CRM operations.' },
+  { icon: 'terminal', title: '34 MCP tools', desc: 'Agent-ready CRM + inbox operations.' },
   { icon: 'key-round', title: 'API-key gated', desc: 'MCP endpoint stays private.' },
 ];
 
 export const FEATURES = [
   { icon: 'users-round', title: 'Contacts for agents', desc: 'Create, update, import, export, unsubscribe, and delete contacts through MCP tools.' },
-  { icon: 'mail', title: 'Email + templates', desc: 'Send SMTP or Mailgun email, render templates, and reuse merge variables.' },
+  { icon: 'mail', title: 'Email + inbox', desc: 'Send SMTP or Mailgun email, render templates, and sync IMAP replies.' },
   { icon: 'megaphone', title: 'Campaign engine', desc: 'Create campaigns, schedule dispatches, and track delivery, opens, and clicks.' },
   { icon: 'calendar-clock', title: 'Built-in scheduler', desc: 'Queue email and campaign tasks without another worker service.' },
   { icon: 'bar-chart-3', title: 'Analytics overview', desc: 'Give agents compact CRM metrics without wasting context tokens.' },
