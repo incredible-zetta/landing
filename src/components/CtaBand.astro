@@ -1,6 +1,9 @@
 ---
 import Icon from '../lib/Icon.astro';
 import { CTA_BAND } from '../lib/data';
+import { getRepoMeta } from '../lib/github';
+
+const { latest } = await getRepoMeta();
 ---
 
 <section class="container-page">
@@ -18,8 +21,8 @@ import { CTA_BAND } from '../lib/data';
       <a class="btn btn-primary btn-lg w-full sm:w-auto" href={CTA_BAND.primary.href}>
         <Icon name="rocket" size={18} /> {CTA_BAND.primary.label}
       </a>
-      <a class="btn btn-secondary btn-lg w-full sm:w-auto" href={CTA_BAND.secondary.href}>
-        <Icon name="book-open" size={18} /> {CTA_BAND.secondary.label}
+      <a class="btn btn-secondary btn-lg w-full sm:w-auto" href={latest.url}>
+        <Icon name="book-open" size={18} /> Release {latest.tag}
       </a>
     </div>
   </div>

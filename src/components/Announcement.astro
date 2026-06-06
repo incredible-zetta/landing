@@ -1,6 +1,9 @@
 ---
 import Icon from '../lib/Icon.astro';
 import { ANNOUNCEMENT } from '../lib/data';
+import { getRepoMeta } from '../lib/github';
+
+const { latest } = await getRepoMeta();
 ---
 
 <div class="border-b border-[color:var(--color-border)] bg-[color:var(--color-primary-soft)] backdrop-blur-md">
@@ -8,12 +11,12 @@ import { ANNOUNCEMENT } from '../lib/data';
     <span class="flex items-center gap-2">
       <Icon name="sparkles" size={14} class="text-[color:var(--color-primary)]" />
       <span>
-        <b class="font-semibold text-[color:var(--color-text-primary)]">{ANNOUNCEMENT.text}</b>
+        <b class="font-semibold text-[color:var(--color-text-primary)]">{latest.tag} is live.</b>
         {' '}{ANNOUNCEMENT.suffix}
       </span>
     </span>
     <a
-      href={ANNOUNCEMENT.href}
+      href={latest.url}
       class="inline-flex items-center gap-1 rounded-[var(--radius-sm)] py-1 font-semibold text-[color:var(--color-secondary)] transition hover:text-[color:var(--color-primary)]"
     >
       {ANNOUNCEMENT.cta} <Icon name="arrow-right" size={14} />

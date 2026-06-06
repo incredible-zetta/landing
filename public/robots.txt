@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://zettacrm.com/sitemap-index.xml
+# LLM-readable site summary
+# https://zettacrm.com/llms.txt
