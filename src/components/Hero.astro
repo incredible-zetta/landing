@@ -1,9 +1,12 @@
 ---
 import Icon from '../lib/Icon.astro';
 import { HERO } from '../lib/data';
+import { getRepoMeta } from '../lib/github';
 import TrustColumn from './TrustColumn.astro';
 import DashboardMock from './DashboardMock.astro';
 import MascotColumn from './MascotColumn.astro';
+
+const { latest } = await getRepoMeta();
 ---
 
 <header class="container-page relative pb-8 pt-10 text-center sm:pt-12">
@@ -24,9 +27,9 @@ import MascotColumn from './MascotColumn.astro';
 
   <div data-hero-reveal class="flex flex-col justify-center gap-3.5 sm:flex-row sm:flex-wrap">
     <a class="btn btn-primary btn-lg" href={HERO.primary.href}>
-      <Icon name="rocket" size={18} /> {HERO.primary.label}
+      <Icon name="rocket" size={18} /> Deploy {latest.tag}
     </a>
-    <a class="btn btn-secondary btn-lg" href={HERO.secondary.href}>
+    <a class="btn btn-secondary btn-lg" href={latest.url}>
       <Icon name="github" size={18} /> {HERO.secondary.label}
     </a>
   </div>

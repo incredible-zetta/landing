@@ -8,30 +8,32 @@ import {
   WHY,
   CTA_BAND,
 } from './data';
+import { WIKI_GUIDES, WIKI_URL, REPO_URL, type RepoMeta } from './github';
 
 const SITE = 'https://zettacrm.com';
 
-const DEPLOY = {
-  heading: 'Deploy Anywhere. You\'re in Control.',
-  badge: 'Stable release',
-  title: 'v0.1.0 ships as a multi-platform GHCR image.',
-  body:
-    'Pull one container, connect MySQL 8, set BASE_URL, and expose /mcp to your agents behind API-key auth.',
-  dockerExample: `docker pull ghcr.io/incredible-zetta/crm:v0.1.0
+const SITE_DESCRIPTION =
+  'A self-hosted Go MCP server with 34 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, purge, and IMAP inbox replies.';
+
+/** Homepage content as llms.txt — version/tags pulled live from the repo. */
+export function generateLlmsTxt(meta: RepoMeta): string {
+  const { latest, tags } = meta;
+  const heroTitle = `${HERO.titleA} ${HERO.titleGradient} ${HERO.titleB}`;
+  const ctaTitle = `${CTA_BAND.titleA} ${CTA_BAND.titleGradient}`;
+
+  const DEPLOY = {
+    heading: 'Deploy Anywhere. You\'re in Control.',
+    badge: 'Stable release',
+    title: `${latest.tag} ships as a multi-platform GHCR image.`,
+    body:
+      'Pull one container, connect MySQL 8, set BASE_URL, and expose /mcp to your agents behind API-key auth.',
+    dockerExample: `docker pull ghcr.io/incredible-zetta/crm:${latest.tag}
 
 MCP_URL=https://crm.example.com/mcp
 Authorization: Bearer $MCP_API_KEY`,
-  primary: { label: 'Install wiki', href: 'https://github.com/incredible-zetta/crm/wiki' },
-  secondary: { label: 'Release notes', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.1.0' },
-};
-
-const SITE_DESCRIPTION =
-  'A self-hosted Go MCP server with 34 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, purge, and IMAP inbox replies. v0.1.0 stable is ready to deploy.';
-
-/** Homepage content as llms.txt (single source: data.ts + deploy copy). */
-export function generateLlmsTxt(): string {
-  const heroTitle = `${HERO.titleA} ${HERO.titleGradient} ${HERO.titleB}`;
-  const ctaTitle = `${CTA_BAND.titleA} ${CTA_BAND.titleGradient}`;
+    primary: { label: 'Install wiki', href: WIKI_URL },
+    secondary: { label: 'Release notes', href: latest.url },
+  };
 
   const lines: string[] = [
     `# ${NAV.brand}`,
@@ -43,7 +45,7 @@ export function generateLlmsTxt(): string {
     '## Announcement',
     '',
     `${ANNOUNCEMENT.text} ${ANNOUNCEMENT.suffix}`,
-    `- [${ANNOUNCEMENT.cta}](${ANNOUNCEMENT.href})`,
+    `- [${ANNOUNCEMENT.cta}](${latest.url})`,
     '',
     '## Hero',
     '',
@@ -82,6 +84,17 @@ export function generateLlmsTxt(): string {
     `- [${DEPLOY.secondary.label}](${DEPLOY.secondary.href})`,
     '',
     ...DEPLOY_RAIL.map((r) => `- **${r.title}**: ${r.sub}`),
+    '',
+    '## Releases',
+    '',
+    `Latest: [${latest.tag}](${latest.url})`,
+    '',
+    ...tags.map((t) => `- [${t.name}](${t.url})`),
+    '',
+    '## Install guides',
+    '',
+    ...WIKI_GUIDES.map((g) => `- [${g.label}](${g.href})`),
+    `- [Full wiki](${WIKI_URL})`,
     '',
     '## Why self-hosted matters',
     '',
