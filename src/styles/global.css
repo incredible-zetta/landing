@@ -111,32 +111,35 @@ html {
 
 /* Type scale defaults (from reff/colors_and_type.css §3 Typography).
    Tailwind preflight resets h1–h6 to inherit, so re-assert them here.
-   Wrapped in :where() to keep specificity 0, so utility classes still win. */
-:where(h1, h2, h3, h4) {
-  color: var(--color-text-primary);
-  margin: 0;
-}
-:where(h1) {
-  font-size: var(--fs-h1);
-  line-height: var(--lh-h1);
-  font-weight: var(--fw-h1);
-  letter-spacing: -0.02em;
-}
-:where(h2) {
-  font-size: var(--fs-h2);
-  line-height: var(--lh-h2);
-  font-weight: var(--fw-h2);
-  letter-spacing: -0.01em;
-}
-:where(h3) {
-  font-size: var(--fs-h3);
-  line-height: var(--lh-h3);
-  font-weight: var(--fw-h3);
-}
-:where(h4) {
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
-  font-weight: 600;
+   MUST live in @layer base: an unlayered rule beats Tailwind's layered
+   utilities regardless of specificity, which would kill mt-*/mb-* on headings. */
+@layer base {
+  :where(h1, h2, h3, h4) {
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  :where(h1) {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    letter-spacing: -0.02em;
+  }
+  :where(h2) {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    font-weight: var(--fw-h2);
+    letter-spacing: -0.01em;
+  }
+  :where(h3) {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+  }
+  :where(h4) {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: 600;
+  }
 }
 
 body {
