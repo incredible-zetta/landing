@@ -1,0 +1,37 @@
+---
+import { STORY } from '../lib/data';
+---
+
+<section id="ownership" class="relative overflow-hidden border-b border-border" data-story>
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-atmosphere opacity-60" aria-hidden="true"></div>
+  <div class="container-page grid gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28">
+    <div class="space-y-6">
+      <p data-reveal class="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+        {STORY.eyebrow}
+      </p>
+      <div class="space-y-2">
+        <p data-story-line class="font-heading text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+          {STORY.left}
+        </p>
+        <p data-story-line class="font-heading text-4xl font-semibold tracking-tight text-muted-foreground sm:text-5xl lg:text-6xl">
+          {STORY.right}
+        </p>
+      </div>
+      <p data-reveal class="max-w-md text-pretty text-base leading-relaxed text-muted-foreground">
+        Privacy is architecture. Agents get a full CRM loop without sending contacts, inbox, or channel history through someone else's SaaS.
+      </p>
+    </div>
+
+    <ol class="space-y-8">
+      {STORY.steps.map((step, i) => (
+        <li data-reveal class="grid grid-cols-[auto_1fr] gap-4 border-t border-border pt-6">
+          <span class="font-mono text-sm text-muted-foreground">{String(i + 1).padStart(2, '0')}</span>
+          <div class="space-y-2">
+            <h2 class="text-lg font-semibold tracking-tight">{step.title}</h2>
+            <p class="text-sm leading-relaxed text-muted-foreground sm:text-base">{step.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://zettacrm.com/sitemap-index.xml
-# LLM-readable site summary
+# LLM-readable site summaries (GEO)
 # https://zettacrm.com/llms.txt
+# https://zettacrm.com/llms-install.txt
+# https://zettacrm.com/install

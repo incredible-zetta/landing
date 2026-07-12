@@ -1,40 +1,45 @@
 ---
 import Icon from '../lib/Icon.astro';
 import { FEATURES } from '../lib/data';
-import { Card, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 ---
 
-<section id="features" class="container-page pb-16">
-  <div class="mb-10 max-w-2xl">
-    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">What agents can do</h2>
-    <p class="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+<section id="capabilities" class="border-b border-border py-20 sm:py-24">
+  <div class="container-page mb-12 max-w-2xl">
+    <h2 data-reveal class="text-3xl font-semibold tracking-tight sm:text-4xl">
+      What agents can do
+    </h2>
+    <p data-reveal class="mt-3 text-base leading-relaxed text-muted-foreground">
       One MCP endpoint covers the full CRM loop — from contact to campaign to inbox to social channels — without bolting on another SaaS.
     </p>
   </div>
 
-  <div class="grid gap-4 sm:grid-cols-2">
+  <div data-stack class="container-page space-y-4 lg:space-y-6">
     {FEATURES.map((f) => (
-      <Card size="sm" className="h-full">
-        <CardHeader className="gap-3">
-          <div class="flex items-start gap-3">
-            <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground">
-              <Icon name={f.icon as any} size={18} />
-            </span>
-            <div class="min-w-0 space-y-1.5">
-              <CardTitle className="text-base">{f.title}</CardTitle>
-              <CardDescription className="text-pretty leading-relaxed">{f.desc}</CardDescription>
-            </div>
+      <article
+        data-stack-panel
+        data-reveal
+        class="grid gap-5 border border-border bg-background/80 p-6 backdrop-blur-sm sm:grid-cols-[auto_1fr] sm:gap-8 sm:p-8 lg:sticky lg:top-24"
+      >
+        <span class="inline-flex size-11 items-center justify-center bg-muted text-foreground">
+          <Icon name={f.icon as any} size={20} />
+        </span>
+        <div class="min-w-0 space-y-4">
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold tracking-tight">{f.title}</h3>
+            <p class="max-w-2xl text-pretty text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {f.desc}
+            </p>
           </div>
-          <ul class="grid gap-1.5 border-t border-border/60 pt-3 sm:grid-cols-2">
+          <ul class="grid gap-2 sm:grid-cols-2">
             {f.points.map((point) => (
-              <li class="flex items-start gap-2 text-xs text-muted-foreground">
-                <span class="mt-1.5 size-1 shrink-0 rounded-full bg-foreground/40" aria-hidden="true" />
+              <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                <span class="mt-2 size-1 shrink-0 rounded-full bg-foreground/40" aria-hidden="true" />
                 <span>{point}</span>
               </li>
             ))}
           </ul>
-        </CardHeader>
-      </Card>
+        </div>
+      </article>
     ))}
   </div>
 </section>
