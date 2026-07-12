@@ -1,69 +1,127 @@
 // Zetta CRM — landing content (single source of truth)
+// Feature story aligned to https://github.com/incredible-zetta/crm
+
+export const SITE_DESCRIPTION =
+  'Self-hosted Go MCP server for AI agents: 75 tools for contacts, email, campaigns, inbox, WhatsApp, Threads, LinkedIn, tracking, scheduling, and analytics. One binary, one MySQL database, one Docker image.';
 
 export const ANNOUNCEMENT = {
-  text: 'v0.1.0 stable is live.',
+  text: 'Stable release is live.',
   suffix: 'GHCR image, release notes, and cloud install wiki are ready for production pilots.',
   cta: 'Read release',
-  href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.1.0',
+  href: 'https://github.com/incredible-zetta/crm/releases',
 };
 
 export const NAV = {
   brand: 'Zetta CRM',
   links: [
-    { label: 'MCP Tools', href: '#features' },
+    { label: 'Capabilities', href: '#features' },
     { label: 'Deploy', href: '#deploy' },
-    { label: 'Security', href: '#why' },
+    { label: 'Why', href: '#why' },
     { label: 'Docs', href: '#docs' },
     { label: 'GitHub', href: 'https://github.com/incredible-zetta/crm' },
   ],
   github: { label: 'GitHub', count: 'Open source', href: 'https://github.com/incredible-zetta/crm' },
-  cta: { label: 'Deploy Stable', href: '#deploy' },
+  cta: { label: 'Deploy', href: '#deploy' },
 };
 
 export const HERO = {
-  eyebrow: 'Open-Source · MCP Server · Self-Hosted',
-  titleA: 'CRM backend',
-  titleGradient: 'built for',
+  eyebrow: 'Open-source · MCP · Self-hosted',
+  titleA: 'Self-hosted CRM',
+  titleGradient: 'for',
   titleB: 'AI agents',
-  sub: 'A Go MCP server with 34 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, purge, and IMAP inbox replies. v0.1.0 stable is ready to deploy.',
-  primary: { label: 'Deploy v0.1.0', href: '#deploy' },
-  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.1.0' },
+  sub: 'A Go Model Context Protocol server with 75 tools. Give any agent contacts, email, campaigns, inbox, WhatsApp, Threads, LinkedIn, scheduling, and analytics — on your infrastructure.',
+  primary: { label: 'Deploy', href: '#deploy' },
+  secondary: { label: 'View on GitHub', href: 'https://github.com/incredible-zetta/crm' },
 };
 
 export const TRUST = [
-  { icon: 'shield-check', title: 'Self-hosted backend', desc: 'Run CRM data in your infra.' },
-  { icon: 'terminal', title: '34 MCP tools', desc: 'Agent-ready CRM + inbox operations.' },
-  { icon: 'key-round', title: 'API-key gated', desc: 'MCP endpoint stays private.' },
+  { icon: 'terminal', title: '75 MCP tools', desc: 'Contacts through channels, all over POST /mcp.' },
+  { icon: 'database', title: 'One database', desc: 'Single MySQL. Single binary. Single Docker image.' },
+  { icon: 'key-round', title: 'API-key gated', desc: 'Bearer or X-API-Key. Tracking routes stay public.' },
 ];
 
+/** Capability story — mirrors the CRM README feature areas. */
 export const FEATURES = [
-  { icon: 'users-round', title: 'Contacts for agents', desc: 'Create, update, import, export, unsubscribe, and delete contacts through MCP tools.' },
-  { icon: 'mail', title: 'Email + inbox', desc: 'Send SMTP or Mailgun email, render templates, and sync IMAP replies.' },
-  { icon: 'megaphone', title: 'Campaign engine', desc: 'Create campaigns, schedule dispatches, and track delivery, opens, and clicks.' },
-  { icon: 'calendar-clock', title: 'Built-in scheduler', desc: 'Queue email and campaign tasks without another worker service.' },
-  { icon: 'bar-chart-3', title: 'Analytics overview', desc: 'Give agents compact CRM metrics without wasting context tokens.' },
+  {
+    icon: 'users-round',
+    title: 'Contacts & pipeline',
+    desc: 'Agents create, import, export, and segment contacts. Fixed stages from new to won/lost, with soft delete and GDPR purge.',
+    points: ['CSV import/export', 'Bulk update + filters', 'Email verify & audit', 'Unsubscribe compliance'],
+  },
+  {
+    icon: 'mail',
+    title: 'Email & templates',
+    desc: 'Send through SMTP or Mailgun. Reusable templates with merge vars, render-before-send, and RFC unsubscribe headers.',
+    points: ['SMTP / Mailgun', 'Template CRUD + render', 'Open & click tracking', 'List-Unsubscribe headers'],
+  },
+  {
+    icon: 'megaphone',
+    title: 'Campaigns & scheduling',
+    desc: 'Segment a list, enqueue a campaign, schedule for later. Background dispatch returns a task id; stats cover delivery, opens, clicks, and top links.',
+    points: ['Segmented sends', 'Queued or sync dispatch', 'schedule_task / cancel', 'Campaign stats'],
+  },
+  {
+    icon: 'inbox',
+    title: 'IMAP inbox',
+    desc: 'Sync inbound replies into local storage. Agents list snippets, read full bodies, mark read, reply, or soft-delete the local copy.',
+    points: ['IMAP sync', 'Read / unread', 'Reply from sender', 'Local soft-delete'],
+  },
+  {
+    icon: 'message-circle',
+    title: 'WhatsApp channel',
+    desc: 'Two-way gateway integration: registration checks, smart-send throttling, inbound webhooks, replies, read receipts, and media lookup.',
+    points: ['Registration audit', 'Smart-send throttle', 'Inbound webhooks', 'Media fetch'],
+  },
+  {
+    icon: 'at-sign',
+    title: 'Threads channel',
+    desc: 'Publish, search, reply, and moderate via Meta Threads. Live Graph calls stay source of truth; posts and replies cache in MySQL.',
+    points: ['Publish + insights', 'Reply tree / quota', 'Mentions + search', 'Token refresh'],
+  },
+  {
+    icon: 'briefcase',
+    title: 'LinkedIn channel',
+    desc: 'Multi-account LinkedIn via the bundled lingin binary. Save cookie sessions, fetch profiles, search people, publish, and comment.',
+    points: ['Multi-account sessions', 'Profile / company fetch', 'People search', 'Post + comment'],
+  },
+  {
+    icon: 'bar-chart-3',
+    title: 'Ops & analytics',
+    desc: 'Health checks, embedded migrations, CSV export downloads, and a compact analytics overview sized for agent context budgets.',
+    points: ['health_check', 'analytics_overview', 'Token-efficient responses', 'EasyPanel one-port deploy'],
+  },
 ];
 
 export const DEPLOY_RAIL = [
-  { icon: 'container', title: 'GHCR image', sub: 'v0.1.0 stable' },
+  { icon: 'container', title: 'GHCR image', sub: 'Multi-platform' },
   { icon: 'binary', title: 'Single binary', sub: 'Go backend' },
-  { icon: 'plug', title: 'MCP HTTP', sub: 'POST /mcp' },
-  { icon: 'database', title: 'MySQL', sub: 'Single database' },
-  { icon: 'mail', title: 'SMTP/Mailgun', sub: 'Email providers' },
-  { icon: 'bot', title: 'AI agents', sub: 'CRM tools ready' },
+  { icon: 'plug', title: 'POST /mcp', sub: 'Streamable HTTP' },
+  { icon: 'database', title: 'MySQL', sub: 'One database' },
 ];
 
 export const WHY = [
-  { icon: 'lock', title: 'Own your CRM data', desc: 'Contacts, campaigns, templates, and analytics stay in your database.' },
-  { icon: 'shield-check', title: 'Private MCP endpoint', desc: 'Bearer or X-API-Key auth gates every agent tool call.', highlight: 'Bearer or X-API-Key auth' },
-  { icon: 'globe', title: 'Public tracking routes', desc: 'Click, open, and export routes work for email recipients without agent credentials.' },
-  { icon: 'badge-dollar-sign', title: 'Open-source core', desc: 'Clone, audit, deploy, and adapt the backend without vendor lock-in.' },
+  {
+    icon: 'lock',
+    title: 'Your data stays yours',
+    desc: 'Contacts, campaigns, templates, inbox, and channel history live in your MySQL — not a vendor SaaS.',
+  },
+  {
+    icon: 'shield-check',
+    title: 'Private MCP, public tracking',
+    desc: 'Agent tools need Bearer or X-API-Key. Click, open, export, and unsubscribe routes stay public for recipients.',
+    highlight: 'Bearer or X-API-Key',
+  },
+  {
+    icon: 'globe',
+    title: 'Compliance built in',
+    desc: 'Unsubscribe tokens, soft delete, and GDPR purge. Optional multi-tenancy scopes data per key + session.',
+  },
 ];
 
 export const CTA_BAND = {
-  titleA: 'Ship a private CRM backend for agents',
-  titleGradient: 'this hour.',
-  sub: 'Pull the stable image, point agents at POST /mcp, and keep contacts, campaigns, tracking, and exports inside your infrastructure.',
+  titleA: 'Run a private CRM backend',
+  titleGradient: 'for your agents.',
+  sub: 'Pull the image, connect MySQL, set BASE_URL and MCP_API_KEY, point agents at POST /mcp.',
   primary: { label: 'Open install wiki', href: 'https://github.com/incredible-zetta/crm/wiki' },
-  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.1.0' },
+  secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases' },
 };

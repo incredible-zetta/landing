@@ -9,18 +9,23 @@ import { cn } from '~/lib/utils';
 
 <footer class="border-t border-border">
   <div class="container-page flex flex-col gap-8 py-10">
-    <div class="flex flex-wrap items-start justify-between gap-6">
-      <div class="space-y-2">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+      <div class="space-y-2 lg:max-w-sm">
         <a href="/" class="inline-flex items-center gap-2.5">
           <img src="/zetta-mark.png" alt="Z" class="h-6 rounded-md" />
           <b class="text-sm font-semibold text-foreground">{NAV.brand}</b>
         </a>
-        <p class="max-w-xs text-sm text-muted-foreground">
-          Open-source MCP CRM backend for AI agents.
+        <p class="text-sm leading-relaxed text-muted-foreground">
+          Open-source MCP CRM backend for AI agents. Self-hosted. 75 tools.
         </p>
       </div>
 
-      <DirectoryBadges />
+      <div class="flex flex-col gap-2">
+        <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          Listed on
+        </p>
+        <DirectoryBadges />
+      </div>
 
       <div class="flex items-center gap-1">
         <a

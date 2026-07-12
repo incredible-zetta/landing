@@ -4,18 +4,17 @@ import { HERO, TRUST } from '../lib/data';
 import { getRepoMeta } from '../lib/github';
 import { buttonVariants } from '~/components/ui/button';
 import { badgeVariants } from '~/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { cn } from '~/lib/utils';
 
 const { latest } = await getRepoMeta();
 ---
 
-<header class="container-page relative pb-16 pt-14 text-center sm:pt-20">
-  <span class={cn(badgeVariants({ variant: 'outline' }), 'mb-6 h-auto gap-2 px-3 py-1 text-[11px] uppercase tracking-[0.12em]')}>
+<header class="container-page relative pb-14 pt-12 text-center sm:pb-16 sm:pt-16">
+  <span class={cn(badgeVariants({ variant: 'outline' }), 'mb-5 h-auto gap-2 px-3 py-1 text-[11px] uppercase tracking-[0.12em]')}>
     {HERO.eyebrow}
   </span>
 
-  <h1 class="mx-auto mb-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+  <h1 class="mx-auto mb-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
     {HERO.titleA}{' '}
     <span class="text-muted-foreground">{HERO.titleGradient}</span>{' '}
     {HERO.titleB}
@@ -34,17 +33,15 @@ const { latest } = await getRepoMeta();
     </a>
   </div>
 
-  <div class="mx-auto mt-12 grid max-w-3xl gap-3 text-left sm:grid-cols-3" aria-label="Trust badges">
+  <dl class="mx-auto mt-12 grid max-w-3xl gap-6 text-left sm:grid-cols-3 sm:gap-8">
     {TRUST.map((t) => (
-      <Card size="sm" className="bg-card/60">
-        <CardHeader className="gap-2">
-          <span class="inline-flex size-8 items-center justify-center rounded-lg bg-muted text-foreground">
-            <Icon name={t.icon as any} size={16} />
-          </span>
-          <CardTitle>{t.title}</CardTitle>
-          <CardDescription>{t.desc}</CardDescription>
-        </CardHeader>
-      </Card>
+      <div class="space-y-1.5">
+        <dt class="flex items-center gap-2 text-sm font-medium text-foreground">
+          <Icon name={t.icon as any} size={16} />
+          {t.title}
+        </dt>
+        <dd class="text-sm leading-relaxed text-muted-foreground">{t.desc}</dd>
+      </div>
     ))}
-  </div>
+  </dl>
 </header>

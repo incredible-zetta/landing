@@ -1,43 +1,40 @@
 ---
 /**
  * Directory listing badges — Product Hunt + Launchpadly.
- * Launchpadly free-tier badge path: /badges/startup/{slug}.svg
+ * Launchpadly must use /embed/badges/... (cross-origin CORP).
+ * /badges/... is same-site only and breaks when embedded off-domain.
  */
 const productHunt = {
   href: 'https://www.producthunt.com/products/zetta-crm?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-zetta-crm',
   src: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1165026&theme=dark',
   alt: 'Zetta CRM - Simple + Lightweight CRM for AI Agents | Product Hunt',
-  width: 250,
-  height: 54,
 };
 
 const launchpadly = {
   href: 'https://launchpadly.co/startup/zetta-crm',
-  src: 'https://launchpadly.co/badges/startup/zetta-crm.svg?variant=listed-on',
+  src: 'https://launchpadly.co/embed/badges/startup/zetta-crm.svg?variant=listed-on',
   alt: 'Launchpadly Startup Directory',
-  width: 260,
-  height: 48,
   slug: 'zetta-crm',
   variant: 'listed-on',
 };
 ---
 
-<div class="flex flex-wrap items-center gap-3">
+<div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:justify-start">
   <a
     href={productHunt.href}
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Zetta CRM on Product Hunt"
-    class="shrink-0 opacity-90 transition-opacity hover:opacity-100"
+    class="inline-flex h-10 items-center opacity-90 transition-opacity hover:opacity-100"
   >
     <img
       src={productHunt.src}
       alt={productHunt.alt}
-      width={productHunt.width}
-      height={productHunt.height}
+      width="200"
+      height="40"
       loading="lazy"
       decoding="async"
-      class="block h-[54px] w-auto"
+      class="h-10 w-auto max-w-[200px] object-contain object-left"
     />
   </a>
   <a
@@ -47,16 +44,17 @@ const launchpadly = {
     data-launchpadly-badge={launchpadly.slug}
     data-launchpadly-badge-variant={launchpadly.variant}
     aria-label="Zetta CRM on Launchpadly"
-    class="shrink-0 opacity-90 transition-opacity hover:opacity-100"
+    class="inline-flex h-10 items-center opacity-90 transition-opacity hover:opacity-100"
   >
     <img
       src={launchpadly.src}
       alt={launchpadly.alt}
-      width={launchpadly.width}
-      height={launchpadly.height}
+      width="220"
+      height="40"
       loading="lazy"
       decoding="async"
-      class="block h-12 w-auto border-0"
+      referrerpolicy="no-referrer"
+      class="h-10 w-auto max-w-[220px] object-contain object-left border-0"
     />
   </a>
 </div>

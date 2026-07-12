@@ -13,10 +13,10 @@ const { latest } = await getRepoMeta();
 <section id="deploy" class="container-page py-16">
   <div class="mb-8 max-w-2xl">
     <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">
-      Deploy anywhere. You're in control.
+      Deploy in one port
     </h2>
     <p class="mt-2 text-sm text-muted-foreground sm:text-base">
-      One container, one database, one MCP endpoint.
+      Single container, MySQL 8, API key, done. Built for EasyPanel and any Docker host.
     </p>
   </div>
 
@@ -24,13 +24,13 @@ const { latest } = await getRepoMeta();
     <div class="grid lg:grid-cols-2">
       <CardHeader className="gap-3 p-6 sm:p-8">
         <span class={cn(badgeVariants({ variant: 'secondary' }), 'w-fit gap-1.5')}>
-          <Icon name="rocket" size={12} /> Stable release
+          <Icon name="rocket" size={12} /> {latest.tag}
         </span>
         <CardTitle className="text-xl sm:text-2xl">
-          {latest.tag} ships as a multi-platform GHCR image.
+          Pull the GHCR image and point agents at <code class="font-mono text-[0.9em]">/mcp</code>.
         </CardTitle>
         <CardDescription className="max-w-prose text-sm leading-relaxed">
-          Pull one container, connect MySQL 8, set <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">BASE_URL</code>, and expose <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">/mcp</code> to your agents behind API-key auth.
+          Set <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">MCP_API_KEY</code>, <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">DB_DSN</code>, and <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">BASE_URL</code>. Authenticate with Bearer or X-API-Key.
         </CardDescription>
         <div class="mt-2 flex flex-wrap gap-2">
           <a href={WIKI_URL} class={cn(buttonVariants())}>Install wiki</a>
@@ -46,7 +46,7 @@ Authorization: Bearer $MCP_API_KEY</code></pre>
     </div>
   </Card>
 
-  <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
     {DEPLOY_RAIL.map((r) => (
       <Card size="sm">
         <CardHeader className="flex-row items-center gap-3 space-y-0">

@@ -6,13 +6,13 @@ import { Card, CardDescription, CardHeader, CardTitle } from '~/components/ui/ca
 
 <section id="why" class="container-page py-16">
   <div class="mb-8 max-w-2xl">
-    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">Why self-hosted matters</h2>
+    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">Why self-hosted</h2>
     <p class="mt-2 text-sm text-muted-foreground sm:text-base">
-      Privacy is architecture, not a marketing badge.
+      Privacy is architecture — not a marketing badge.
     </p>
   </div>
 
-  <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+  <div class="grid gap-3 sm:grid-cols-3">
     {WHY.map((w) => (
       <Card size="sm" className="h-full">
         <CardHeader>
@@ -20,7 +20,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '~/components/ui/ca
             <Icon name={w.icon as any} size={18} />
           </span>
           <CardTitle>{w.title}</CardTitle>
-          <CardDescription className="text-pretty">
+          <CardDescription className="text-pretty leading-relaxed">
             {w.highlight ? (
               <>
                 <span class="font-medium text-foreground">{w.highlight}</span>{' '}

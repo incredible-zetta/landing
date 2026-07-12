@@ -5,22 +5,34 @@ import { Card, CardDescription, CardHeader, CardTitle } from '~/components/ui/ca
 ---
 
 <section id="features" class="container-page pb-16">
-  <div class="mb-8 max-w-2xl">
-    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">MCP tools</h2>
-    <p class="mt-2 text-sm text-muted-foreground sm:text-base">
-      Agent-ready CRM operations without bolting on another SaaS stack.
+  <div class="mb-10 max-w-2xl">
+    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">What agents can do</h2>
+    <p class="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+      One MCP endpoint covers the full CRM loop — from contact to campaign to inbox to social channels — without bolting on another SaaS.
     </p>
   </div>
 
-  <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+  <div class="grid gap-4 sm:grid-cols-2">
     {FEATURES.map((f) => (
       <Card size="sm" className="h-full">
-        <CardHeader>
-          <span class="mb-2 inline-flex size-9 items-center justify-center rounded-lg bg-muted text-foreground">
-            <Icon name={f.icon as any} size={18} />
-          </span>
-          <CardTitle>{f.title}</CardTitle>
-          <CardDescription className="text-pretty">{f.desc}</CardDescription>
+        <CardHeader className="gap-3">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground">
+              <Icon name={f.icon as any} size={18} />
+            </span>
+            <div class="min-w-0 space-y-1.5">
+              <CardTitle className="text-base">{f.title}</CardTitle>
+              <CardDescription className="text-pretty leading-relaxed">{f.desc}</CardDescription>
+            </div>
+          </div>
+          <ul class="grid gap-1.5 border-t border-border/60 pt-3 sm:grid-cols-2">
+            {f.points.map((point) => (
+              <li class="flex items-start gap-2 text-xs text-muted-foreground">
+                <span class="mt-1.5 size-1 shrink-0 rounded-full bg-foreground/40" aria-hidden="true" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
         </CardHeader>
       </Card>
     ))}

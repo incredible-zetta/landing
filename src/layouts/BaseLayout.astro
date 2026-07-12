@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'Zetta CRM — Open-source MCP backend for AI agents',
-  description = 'A self-hosted Go MCP server with 28 tools: contacts, email, campaigns, tracking, scheduling, and analytics. Deploy the CRM backend your AI agents deserve.',
+  title = 'Zetta CRM — Self-hosted CRM for AI agents',
+  description = 'Self-hosted Go MCP server with 75 tools: contacts, email, campaigns, inbox, WhatsApp, Threads, LinkedIn, tracking, scheduling, and analytics. One binary, one MySQL database, one Docker image.',
 } = Astro.props;
 
 const site = 'https://zettacrm.com';
@@ -27,7 +27,7 @@ const canonical = Astro.url.href;
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="CRM, AI agents, MCP, self-hosted, open-source, Go, contacts, email, campaigns, Model Context Protocol" />
+    <meta name="keywords" content="CRM, AI agents, MCP, self-hosted, open-source, Go, contacts, email, campaigns, WhatsApp, Threads, LinkedIn, Model Context Protocol" />
     <meta name="author" content="Incredible Zetta" />
     <meta name="robots" content="index, follow" />
 
