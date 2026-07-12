@@ -67,32 +67,3 @@ export const CTA_BAND = {
   primary: { label: 'Open install wiki', href: 'https://github.com/incredible-zetta/crm/wiki' },
   secondary: { label: 'View release', href: 'https://github.com/incredible-zetta/crm/releases/tag/v0.1.0' },
 };
-
-export const DM_NAV = [
-  ['layout-grid', 'Overview', true],
-  ['users', 'Contacts', false],
-  ['building-2', 'Accounts', false],
-  ['bot', 'AI Agents', false],
-  ['message-square', 'Conversations', false],
-  ['check-square', 'Tasks', false],
-  ['git-branch', 'Workflows', false],
-  ['bar-chart-3', 'Analytics', false],
-  ['settings', 'Settings', false],
-] as const;
-
-export const DM_STATS = [
-  ['Active Agents', '24', '+12%'],
-  ['Contacts', '8,842', '+18%'],
-  ['Conversations', '32,104', '+24%'],
-  ['Tasks Completed', '1,284', '+8%'],
-] as const;
-
-export const DM_AGENTS = [
-  { name: 'Support Agent', value: 12540, hue: 0 },
-  { name: 'Sales Agent', value: 8430, hue: 50 },
-  { name: 'Onboarding Agent', value: 6120, hue: -40 },
-  { name: 'Research Agent', value: 5014, hue: 120 },
-] as const;
-
-export const DM_CHART = [3.4, 3.0, 3.3, 2.6, 2.9, 3.7, 4.1, 4.4, 4.2, 4.9, 5.3, 5.6] as const;
-export const DM_AXIS = ['May 10', 'May 11', 'May 12', 'May 13', 'May 14', 'May 15', 'May 16'] as const;

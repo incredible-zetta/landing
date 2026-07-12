@@ -1,74 +1,60 @@
 ---
 import Icon from '../lib/Icon.astro';
 import { NAV } from '../lib/data';
+import DirectoryBadges from './DirectoryBadges.astro';
+import { Separator } from '~/components/ui/separator';
+import { buttonVariants } from '~/components/ui/button';
+import { cn } from '~/lib/utils';
 ---
 
-<footer class="container-page flex flex-wrap items-center justify-between gap-4 border-t border-[color:var(--color-border)] py-7">
-  <style>
-    .social-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-md);
-      transition: color var(--dur-base) var(--ease-soft), background var(--dur-base) var(--ease-soft);
-    }
-    .social-icon:hover {
-      color: var(--color-text-primary);
-      background: var(--color-surface);
-    }
-  </style>
-  <a href="/" class="flex items-center gap-2.5">
-    <img src="/zetta-mark.png" alt="Z" class="h-[26px] rounded-md" />
-    <b class="text-[15px] text-[color:var(--color-text-primary)]">{NAV.brand}</b>
-  </a>
-  <span class="text-[12px] text-[color:var(--color-text-muted)]">
-    Open-source MCP CRM backend for AI agents.
-  </span>
-  <a
-    href="https://www.producthunt.com/products/zetta-crm?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-zetta-crm"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Zetta CRM on Product Hunt"
-    class="shrink-0"
-  >
-    <img
-      src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1165026&theme=dark&t=1780751338140"
-      alt="Zetta CRM - Simple + Lightweight CRM for AI Agents | Product Hunt"
-      width="250"
-      height="54"
-      loading="lazy"
-    />
-  </a>
-  <!-- Launchpadly — Zetta CRM (listed-on) -->
-  <a
-    href="https://launchpadly.co/startup/zetta-crm"
-    target="_blank"
-    rel="noopener noreferrer"
-    data-launchpadly-badge="zetta-crm"
-    data-launchpadly-badge-variant="listed-on"
-    aria-label="Zetta CRM on Launchpadly"
-    class="shrink-0"
-  >
-    <img
-      src="https://launchpadly.co/embed/badges/startup/zetta-crm.svg?variant=listed-on"
-      alt="Launchpadly Startup Directory"
-      width="260"
-      height="48"
-      loading="lazy"
-      style="display:block;border:0;"
-    />
-  </a>
-  <div class="flex items-center gap-1 text-[color:var(--color-text-muted)]">
-    <a href="https://github.com/incredible-zetta/crm" target="_blank" rel="noreferrer" aria-label="Zetta CRM on GitHub" class="social-icon">
-      <Icon name="github" size={18} />
-    </a>
-    <a href="https://twitter.com/" target="_blank" rel="noreferrer" aria-label="Zetta CRM on X" class="social-icon">
-      <Icon name="twitter" size={18} />
-    </a>
-    <a href="#rss" aria-label="Zetta CRM RSS feed" class="social-icon">
-      <Icon name="rss" size={18} />
-    </a>
+<footer class="border-t border-border">
+  <div class="container-page flex flex-col gap-8 py-10">
+    <div class="flex flex-wrap items-start justify-between gap-6">
+      <div class="space-y-2">
+        <a href="/" class="inline-flex items-center gap-2.5">
+          <img src="/zetta-mark.png" alt="Z" class="h-6 rounded-md" />
+          <b class="text-sm font-semibold text-foreground">{NAV.brand}</b>
+        </a>
+        <p class="max-w-xs text-sm text-muted-foreground">
+          Open-source MCP CRM backend for AI agents.
+        </p>
+      </div>
+
+      <DirectoryBadges />
+
+      <div class="flex items-center gap-1">
+        <a
+          href="https://github.com/incredible-zetta/crm"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Zetta CRM on GitHub"
+          class={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+        >
+          <Icon name="github" size={18} />
+        </a>
+        <a
+          href="https://twitter.com/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Zetta CRM on X"
+          class={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+        >
+          <Icon name="twitter" size={18} />
+        </a>
+        <a
+          href="#rss"
+          aria-label="Zetta CRM RSS feed"
+          class={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+        >
+          <Icon name="rss" size={18} />
+        </a>
+      </div>
+    </div>
+
+    <Separator />
+
+    <p class="text-xs text-muted-foreground">
+      A partnership between Incredible Zetta and Ciptadusa (CDS).
+    </p>
   </div>
 </footer>

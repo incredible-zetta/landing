@@ -25,10 +25,9 @@ The site communicates the product's value proposition to AI operators, vibecoder
 
 | Layer | Tool |
 |-------|------|
-| Framework | [Astro 5](https://astro.build) |
-| Styling | [Tailwind CSS 4](https://tailwindcss.com) |
-| Motion | [GSAP](https://gsap.com) + ScrollTrigger |
-| Icons | [Lucide](https://lucide.dev) (inline SVG) |
+| Framework | [Astro 5](https://astro.build) + React islands |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) |
+| Icons | [Lucide](https://lucide.dev) |
 | Hosting | Cloudflare Pages |
 | DNS | Ciptadusa (CDS) Cloudflare |
 
@@ -62,20 +61,19 @@ Deployed automatically via Cloudflare Pages on push to `main`.
 
 ```
 src/
-├── components/     # Astro components (Navbar, Hero, Features, etc.)
-├── layouts/        # BaseLayout with SEO meta
-├── lib/            # Data (data.ts), Icon renderer
-├── pages/          # index.astro
-└── styles/         # global.css (design tokens + utilities)
-public/             # Static assets (logos, mascot, OG images)
+├── components/     # Landing sections + ui/ (shadcn)
+├── layouts/        # BaseLayout with SEO meta + llms.txt link
+├── lib/            # Content (data.ts), GitHub meta, Icon renderer
+├── pages/          # index.astro, llms.txt.ts (GEO)
+└── styles/         # global.css (default shadcn tokens)
+public/             # Logos, OG image, robots.txt
 ```
 
 ## Brand
 
-- **Primary color**: Electric lime `oklch(93.98% 0.2077 121.13)` — `#D7FF3F`
-- **Background**: Deep dark `#0B0F1C`
-- **Typography**: Inter + JetBrains Mono
-- **Motion**: GSAP with reduced-motion respect
+- **Theme**: Default shadcn neutral (dark mode)
+- **Typography**: Geist Variable
+- **UI**: Button, Badge, Card, Separator, Sheet
 
 ## Related
 

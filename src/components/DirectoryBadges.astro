@@ -1,0 +1,62 @@
+---
+/**
+ * Directory listing badges — Product Hunt + Launchpadly.
+ * Launchpadly free-tier badge path: /badges/startup/{slug}.svg
+ */
+const productHunt = {
+  href: 'https://www.producthunt.com/products/zetta-crm?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-zetta-crm',
+  src: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1165026&theme=dark',
+  alt: 'Zetta CRM - Simple + Lightweight CRM for AI Agents | Product Hunt',
+  width: 250,
+  height: 54,
+};
+
+const launchpadly = {
+  href: 'https://launchpadly.co/startup/zetta-crm',
+  src: 'https://launchpadly.co/badges/startup/zetta-crm.svg?variant=listed-on',
+  alt: 'Launchpadly Startup Directory',
+  width: 260,
+  height: 48,
+  slug: 'zetta-crm',
+  variant: 'listed-on',
+};
+---
+
+<div class="flex flex-wrap items-center gap-3">
+  <a
+    href={productHunt.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Zetta CRM on Product Hunt"
+    class="shrink-0 opacity-90 transition-opacity hover:opacity-100"
+  >
+    <img
+      src={productHunt.src}
+      alt={productHunt.alt}
+      width={productHunt.width}
+      height={productHunt.height}
+      loading="lazy"
+      decoding="async"
+      class="block h-[54px] w-auto"
+    />
+  </a>
+  <a
+    href={launchpadly.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-launchpadly-badge={launchpadly.slug}
+    data-launchpadly-badge-variant={launchpadly.variant}
+    aria-label="Zetta CRM on Launchpadly"
+    class="shrink-0 opacity-90 transition-opacity hover:opacity-100"
+  >
+    <img
+      src={launchpadly.src}
+      alt={launchpadly.alt}
+      width={launchpadly.width}
+      height={launchpadly.height}
+      loading="lazy"
+      decoding="async"
+      class="block h-12 w-auto border-0"
+    />
+  </a>
+</div>

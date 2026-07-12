@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import Motion from '../components/Motion.astro';
 
 interface Props {
   title?: string;
@@ -18,16 +17,15 @@ const canonical = Astro.url.href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/zetta-mark.png" />
     <link rel="canonical" href={canonical} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <meta name="theme-color" content="#0B0F1C" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
+    <meta name="theme-color" content="#0a0a0a" />
     <meta name="description" content={description} />
     <meta name="keywords" content="CRM, AI agents, MCP, self-hosted, open-source, Go, contacts, email, campaigns, Model Context Protocol" />
     <meta name="author" content="Incredible Zetta" />
@@ -76,10 +74,6 @@ const canonical = Astro.url.href;
     <title>{title}</title>
   </head>
   <body>
-    <div class="site-bg">
-      <div class="starfield"></div>
-      <slot />
-    </div>
-    <Motion />
+    <slot />
   </body>
 </html>

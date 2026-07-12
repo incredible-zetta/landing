@@ -2,53 +2,46 @@
 
 ## Source
 
-Derived from `reff/README.md`, `reff/colors_and_type.css`, and current Astro implementation.
+Default [shadcn/ui](https://ui.shadcn.com) design system (`radix-nova` style, neutral base) on Astro 5 + Tailwind 4 + React islands.
 
 ## Visual Theme
 
-Dark, luminous, glassmorphic anime-tech. Physical scene: AI operator reviewing private agent/customer data on a large monitor in a dim workspace, moving fast but needing confidence that data stays inside own infrastructure. Dark theme is correct because ambient scene, glow language, and operator context all reinforce high-contrast night-work tooling.
+Dark, content-first product landing. Surfaces use shadcn tokens (`background`, `card`, `muted`, `border`). No decorative illustrations, mascots, starfields, or gradient glows.
 
 ## Color Strategy
 
-Committed dark violet-blue system. Near-black background carries most of surface, purple/blue/cyan gradients carry brand and data energy. Pink is rare highlight only. Use OKLCH-compatible tinted neutrals in spirit, no pure black/white in new work.
+Default shadcn neutral palette with CSS variables. Dark mode is the default (`class="dark"` on `<html>`). Prefer theme tokens over ad-hoc hex:
 
-### Core Tokens
-
-- Background: `#0B0F1C`
-- Surface: `#11162A`
-- Elevated surface: `#171C33`
-- Border: `#2A3150`
-- Primary: `#7B5CFF`
-- Secondary: `#4F8CFF`
-- Cyan accent: `#00D5FF`
-- Pink accent: `#FF3CF7`
-- Primary text: `#F4F6FF`
-- Secondary text: `#A6ACCE`
-- Muted text: `#6B7096`
-- Success: `#22D3A1`
-- Warning: `#F5C542`
-- Danger: `#FF5C7C`
+- `bg-background` / `text-foreground`
+- `bg-card` / `text-card-foreground`
+- `text-muted-foreground`
+- `border-border` / `ring-ring`
+- `bg-primary` / `text-primary-foreground`
 
 ## Typography
 
-Use Inter for UI and marketing. Use JetBrains Mono for snippets, infra labels, IDs, API hints. Display scale should feel tight and technical, not editorial. Keep body line length under 75ch. Headings use strong scale and weight contrast.
+Geist Variable for UI and headings. System mono stack for code snippets and release tags. Keep body line length readable; headings use tracking-tight weight contrast.
 
 ## Layout
 
-8pt grid. Landing sections use generous vertical rhythm, wide gutters, and asymmetric hero balance. Avoid identical card grids where possible; when cards remain, vary density and content roles. Keep mobile layouts single-column, readable, and touch-safe.
+Comfortable density (`gap-3`–`gap-8`, `p-6`/`p-8`). Max content width ~1120px via `container-page`. Mobile-first single column; trust/features/deploy grids expand at `sm`/`lg`.
 
 ## Components
 
-- Buttons: rounded 8-12px, primary gradient purple to blue, hover glow, clear focus ring.
-- Cards/panels: translucent dark surface, 1px border, soft elevation, limited blur.
-- Badges: pill, uppercase or concise label, soft brand/status fill.
-- Icons: Lucide only, outline, 24px grid, 1.5px stroke, rounded caps/joins.
-- Mascot/portrait: anime-tech portrait should sit transparent over background, not boxed in a harsh opaque card.
+Use shadcn primitives from `src/components/ui/`:
+
+- `Button` / `buttonVariants` — primary and outline CTAs
+- `Badge` / `badgeVariants` — release labels, tags, eyebrows (`~/components/ui/badge`)
+- `Card` (+ Header/Title/Description/Content/Footer) — section surfaces
+- `Separator` — footer divider
+- `Sheet` — mobile navigation
+
+Directory badges (Product Hunt, Launchpadly) live in `DirectoryBadges.astro` with official embed paths.
 
 ## Motion
 
-Motion personality: corporate/energetic hybrid. Fast, controlled, technical. Use GSAP for page-load sequencing, scroll-triggered reveals, and subtle parallax. Animate transforms and opacity only. Use `power4.out`, `expo.out`, or existing `--ease-out`. No bounce, no elastic, no endless decorative loops. Respect `prefers-reduced-motion` by showing final state.
+Keep motion minimal. Prefer CSS transitions on interactive controls. Respect `prefers-reduced-motion`.
 
 ## Responsive Rules
 
-Mobile first. No horizontal scroll. Touch targets minimum 44px. Hero copy remains primary, mascot becomes supportive and transparent. Nav should not crowd viewport. Dashboard mock and dense panels must scale or stack without clipped content.
+Mobile first. Touch targets ≥44px on primary CTAs. Sticky header with `Sheet` menu below `lg`.
