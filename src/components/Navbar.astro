@@ -1,10 +1,14 @@
 ---
 import Icon from '../lib/Icon.astro';
 import { NAV } from '../lib/data';
+import { getRepoMeta, API_BASE, REPO_URL } from '../lib/github';
 import { buttonVariants } from '~/components/ui/button';
 import { cn } from '~/lib/utils';
 import { MobileNav } from './MobileNav';
 import { ThemeToggle } from './ThemeToggle';
+import { GitHubStarCount } from './GitHubStarCount';
+
+const { stars } = await getRepoMeta();
 ---
 
 <header class="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-md">
@@ -29,20 +33,22 @@ import { ThemeToggle } from './ThemeToggle';
 
     <div class="ml-auto flex items-center gap-2">
       <a
-        href={NAV.github.href}
+        href={`${REPO_URL}/stargazers`}
         target="_blank"
         rel="noreferrer"
         class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'hidden lg:inline-flex')}
+        aria-label="Zetta CRM on GitHub"
       >
         <Icon name="github" size={14} />
         {NAV.github.label}
-        <span class="text-muted-foreground">{NAV.github.count}</span>
+        <span class="h-3 w-px bg-border" aria-hidden="true" />
+        <GitHubStarCount client:load initial={stars} apiUrl={API_BASE} className="text-muted-foreground" />
       </a>
       <a class={cn(buttonVariants({ size: 'sm' }))} href={NAV.cta.href}>
         {NAV.cta.label}
       </a>
       <ThemeToggle client:load />
-      <MobileNav client:load links={NAV.links} github={NAV.github} />
+      <MobileNav client:load links={NAV.links} github={NAV.github} stars={stars} />
     </div>
   </nav>
 </header>

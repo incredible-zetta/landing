@@ -1,6 +1,7 @@
 "use client"
 
-import { Menu } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Menu, Star } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import {
   Sheet,
@@ -15,10 +16,24 @@ type NavLink = { label: string; href: string }
 export function MobileNav({
   links,
   github,
+  stars = 0,
 }: {
   links: NavLink[]
   github: { label: string; count: string; href: string }
+  stars?: number
+  apiUrl?: string
 }) {
+  const [liveStars, setLiveStars] = useState(stars)
+
+  useEffect(() => {
+    const onStars = (e: Event) => {
+      const detail = (e as CustomEvent<{ stars: number }>).detail
+      if (typeof detail?.stars === "number") setLiveStars(detail.stars)
+    }
+    document.addEventListener("zetta:stars", onStars)
+    return () => document.removeEventListener("zetta:stars", onStars)
+  }, [])
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -46,12 +61,18 @@ export function MobileNav({
             </a>
           ))}
           <a
-            href={github.href}
+            href={`${github.href}/stargazers`}
             target="_blank"
             rel="noreferrer"
-            className="mt-2 rounded-lg border border-border px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            className="mt-2 inline-flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
           >
-            {github.label} · {github.count}
+            <span className="inline-flex items-center gap-2">
+              {github.label}
+            </span>
+            <span className="inline-flex items-center gap-1 tabular-nums text-muted-foreground">
+              <Star className="size-3.5 fill-current opacity-70" />
+              <span data-repo-stars>{liveStars.toLocaleString()}</span>
+            </span>
           </a>
         </nav>
       </SheetContent>

@@ -20,7 +20,7 @@ export const NAV = {
     { label: 'Docs', href: '#docs' },
     { label: 'GitHub', href: 'https://github.com/incredible-zetta/crm' },
   ],
-  github: { label: 'GitHub', count: 'Open source', href: 'https://github.com/incredible-zetta/crm' },
+  github: { label: 'GitHub', count: 'Stars', href: 'https://github.com/incredible-zetta/crm' },
   cta: { label: 'Deploy', href: '#deploy' },
 };
 
