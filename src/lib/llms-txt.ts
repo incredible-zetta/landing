@@ -7,13 +7,11 @@ import {
   DEPLOY_RAIL,
   WHY,
   CTA_BAND,
+  SITE_DESCRIPTION,
 } from './data';
 import { WIKI_GUIDES, WIKI_URL, REPO_URL, type RepoMeta } from './github';
 
 const SITE = 'https://zettacrm.com';
-
-const SITE_DESCRIPTION =
-  'A self-hosted Go MCP server with 34 agent tools: contacts, email, campaigns, tracking, scheduling, analytics, exports, unsubscribe, soft-delete, purge, and IMAP inbox replies.';
 
 /** Homepage content as llms.txt — version/tags pulled live from the repo. */
 export function generateLlmsTxt(meta: RepoMeta): string {
@@ -22,11 +20,11 @@ export function generateLlmsTxt(meta: RepoMeta): string {
   const ctaTitle = `${CTA_BAND.titleA} ${CTA_BAND.titleGradient}`;
 
   const DEPLOY = {
-    heading: 'Deploy Anywhere. You\'re in Control.',
+    heading: 'Deploy in one port',
     badge: 'Stable release',
-    title: `${latest.tag} ships as a multi-platform GHCR image.`,
+    title: `${latest.tag} — pull the GHCR image and point agents at /mcp.`,
     body:
-      'Pull one container, connect MySQL 8, set BASE_URL, and expose /mcp to your agents behind API-key auth.',
+      'Set MCP_API_KEY, DB_DSN, and BASE_URL. Authenticate with Bearer or X-API-Key.',
     dockerExample: `docker pull ghcr.io/incredible-zetta/crm:${latest.tag}
 
 MCP_URL=https://crm.example.com/mcp
@@ -58,14 +56,20 @@ Authorization: Bearer $MCP_API_KEY`,
     `- [${HERO.primary.label}](${HERO.primary.href})`,
     `- [${HERO.secondary.label}](${HERO.secondary.href})`,
     '',
-    '### Trust',
+    '### At a glance',
     '',
     ...TRUST.map((t) => `- **${t.title}**: ${t.desc}`),
     '',
-    '## MCP Tools',
+    '## Capabilities',
     '',
-    ...FEATURES.map((f) => `- **${f.title}**: ${f.desc}`),
-    '',
+    ...FEATURES.flatMap((f) => [
+      `### ${f.title}`,
+      '',
+      f.desc,
+      '',
+      ...f.points.map((p) => `- ${p}`),
+      '',
+    ]),
     '## Deploy',
     '',
     `### ${DEPLOY.heading}`,
@@ -96,7 +100,7 @@ Authorization: Bearer $MCP_API_KEY`,
     ...WIKI_GUIDES.map((g) => `- [${g.label}](${g.href})`),
     `- [Full wiki](${WIKI_URL})`,
     '',
-    '## Why self-hosted matters',
+    '## Why self-hosted',
     '',
     ...WHY.map((w) => {
       const desc = w.highlight ? `${w.highlight} ${w.desc.replace(w.highlight, '').trim()}` : w.desc;

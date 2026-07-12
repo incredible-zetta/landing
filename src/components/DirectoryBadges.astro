@@ -1,0 +1,70 @@
+---
+/**
+ * Directory listing badges — Product Hunt + Launchpadly.
+ * Launchpadly must use /embed/badges/... (cross-origin CORP).
+ * Product Hunt ships light + dark embeds; swap with theme class.
+ */
+const productHunt = {
+  href: 'https://www.producthunt.com/products/zetta-crm?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-zetta-crm',
+  lightSrc: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1165026&theme=light',
+  darkSrc: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1165026&theme=dark',
+  alt: 'Zetta CRM - Simple + Lightweight CRM for AI Agents | Product Hunt',
+};
+
+const launchpadly = {
+  href: 'https://launchpadly.co/startup/zetta-crm',
+  src: 'https://launchpadly.co/embed/badges/startup/zetta-crm.svg?variant=listed-on',
+  alt: 'Launchpadly Startup Directory',
+  slug: 'zetta-crm',
+  variant: 'listed-on',
+};
+---
+
+<div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:justify-start">
+  <a
+    href={productHunt.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Zetta CRM on Product Hunt"
+    class="inline-flex h-10 items-center opacity-90 transition-opacity hover:opacity-100"
+  >
+    <img
+      src={productHunt.lightSrc}
+      alt={productHunt.alt}
+      width="200"
+      height="40"
+      loading="lazy"
+      decoding="async"
+      class="h-10 w-auto max-w-[200px] object-contain object-left dark:hidden"
+    />
+    <img
+      src={productHunt.darkSrc}
+      alt={productHunt.alt}
+      width="200"
+      height="40"
+      loading="lazy"
+      decoding="async"
+      class="hidden h-10 w-auto max-w-[200px] object-contain object-left dark:block"
+    />
+  </a>
+  <a
+    href={launchpadly.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-launchpadly-badge={launchpadly.slug}
+    data-launchpadly-badge-variant={launchpadly.variant}
+    aria-label="Zetta CRM on Launchpadly"
+    class="inline-flex h-10 items-center opacity-90 transition-opacity hover:opacity-100"
+  >
+    <img
+      src={launchpadly.src}
+      alt={launchpadly.alt}
+      width="220"
+      height="40"
+      loading="lazy"
+      decoding="async"
+      referrerpolicy="no-referrer"
+      class="h-10 w-auto max-w-[220px] object-contain object-left border-0"
+    />
+  </a>
+</div>
