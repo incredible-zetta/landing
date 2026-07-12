@@ -71,9 +71,9 @@ public/             # Logos, OG image, robots.txt
 
 ## Brand
 
-- **Theme**: Default shadcn neutral (dark mode)
+- **Theme**: Default shadcn neutral (light default, dark toggle)
 - **Typography**: Geist Variable
-- **UI**: Button, Badge, Card, Separator, Sheet
+- **UI**: Button, Badge, Card, Separator, Sheet, ThemeToggle
 
 ## Related
 

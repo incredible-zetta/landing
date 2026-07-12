@@ -2,11 +2,12 @@
 /**
  * Directory listing badges — Product Hunt + Launchpadly.
  * Launchpadly must use /embed/badges/... (cross-origin CORP).
- * /badges/... is same-site only and breaks when embedded off-domain.
+ * Product Hunt ships light + dark embeds; swap with theme class.
  */
 const productHunt = {
   href: 'https://www.producthunt.com/products/zetta-crm?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-zetta-crm',
-  src: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1165026&theme=dark',
+  lightSrc: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1165026&theme=light',
+  darkSrc: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1165026&theme=dark',
   alt: 'Zetta CRM - Simple + Lightweight CRM for AI Agents | Product Hunt',
 };
 
@@ -28,13 +29,22 @@ const launchpadly = {
     class="inline-flex h-10 items-center opacity-90 transition-opacity hover:opacity-100"
   >
     <img
-      src={productHunt.src}
+      src={productHunt.lightSrc}
       alt={productHunt.alt}
       width="200"
       height="40"
       loading="lazy"
       decoding="async"
-      class="h-10 w-auto max-w-[200px] object-contain object-left"
+      class="h-10 w-auto max-w-[200px] object-contain object-left dark:hidden"
+    />
+    <img
+      src={productHunt.darkSrc}
+      alt={productHunt.alt}
+      width="200"
+      height="40"
+      loading="lazy"
+      decoding="async"
+      class="hidden h-10 w-auto max-w-[200px] object-contain object-left dark:block"
     />
   </a>
   <a

@@ -6,11 +6,11 @@ Default [shadcn/ui](https://ui.shadcn.com) design system (`radix-nova` style, ne
 
 ## Visual Theme
 
-Dark, content-first product landing. Surfaces use shadcn tokens (`background`, `card`, `muted`, `border`). No decorative illustrations, mascots, starfields, or gradient glows.
+Content-first product landing. Surfaces use shadcn tokens (`background`, `card`, `muted`, `border`). No decorative illustrations, mascots, starfields, or gradient glows. Light mode is the default; users can toggle dark via the navbar.
 
 ## Color Strategy
 
-Default shadcn neutral palette with CSS variables. Dark mode is the default (`class="dark"` on `<html>`). Prefer theme tokens over ad-hoc hex:
+Default shadcn neutral palette with CSS variables. Theme is stored in `localStorage` (`theme=light|dark`). Prefer theme tokens over ad-hoc hex:
 
 - `bg-background` / `text-foreground`
 - `bg-card` / `text-card-foreground`
