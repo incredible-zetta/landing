@@ -1,0 +1,455 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Announcement from '../components/Announcement.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../lib/Icon.astro';
+import { INSTALL } from '../lib/data';
+import {
+  getRepoMeta,
+  API_BASE,
+  REPO_URL,
+  GHCR_IMAGE,
+  WIKI_URL,
+} from '../lib/github';
+import { buttonVariants } from '~/components/ui/button';
+import { badgeVariants } from '~/components/ui/badge';
+import { cn } from '~/lib/utils';
+
+const { latest, tags } = await getRepoMeta();
+const site = 'https://zettacrm.com';
+
+const howToLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to install Zetta CRM',
+  description: INSTALL.description,
+  url: `${site}/install`,
+  totalTime: 'PT15M',
+  tool: [
+    { '@type': 'HowToTool', name: 'Docker' },
+    { '@type': 'HowToTool', name: 'MySQL 8' },
+  ],
+  supply: [
+    { '@type': 'HowToSupply', name: `${GHCR_IMAGE}:${latest.tag}` },
+  ],
+  step: [
+    {
+      '@type': 'HowToStep',
+      name: 'Create a Docker network and MySQL 8',
+      text: 'Run MySQL 8 with a dedicated database and user for Zetta CRM.',
+      url: `${site}/install#docker`,
+    },
+    {
+      '@type': 'HowToStep',
+      name: 'Pull and run the GHCR image',
+      text: `Pull ${GHCR_IMAGE}:${latest.tag} and start the container with MCP_API_KEY, BASE_URL, and DB_DSN.`,
+      url: `${site}/install#docker`,
+    },
+    {
+      '@type': 'HowToStep',
+      name: 'Smoke test health and MCP',
+      text: 'GET /healthz should return 200. Point your MCP client at POST /mcp with Bearer auth.',
+      url: `${site}/install#verify`,
+    },
+    {
+      '@type': 'HowToStep',
+      name: 'Configure reverse proxy and BASE_URL',
+      text: 'Terminate TLS at your proxy and set BASE_URL to the public HTTPS origin.',
+      url: `${site}/install#routes`,
+    },
+  ],
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: INSTALL.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a.replace('v0.7.1', latest.tag),
+    },
+  })),
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site },
+    { '@type': 'ListItem', position: 2, name: 'Install', item: `${site}/install` },
+  ],
+};
+
+const webPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: INSTALL.title,
+  description: INSTALL.description,
+  url: `${site}/install`,
+  isPartOf: { '@type': 'WebSite', name: 'Zetta CRM', url: site },
+  inLanguage: 'en',
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['#install-intro', '#docker', '#compose', '#env'],
+  },
+};
+---
+
+<BaseLayout
+  title="Install Zetta CRM — Docker, Compose & platform guides"
+  description={INSTALL.description}
+  path="/install"
+  ogType="article"
+  jsonLd={[howToLd, faqLd, breadcrumbLd, webPageLd]}
+>
+  <Announcement />
+  <Navbar />
+  <main>
+    <header class="relative overflow-hidden border-b border-border">
+      <div class="pointer-events-none absolute inset-0 -z-10 bg-atmosphere" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute inset-0 -z-10 bg-grid-fade opacity-40" aria-hidden="true"></div>
+      <div class="container-page py-16 sm:py-20">
+        <nav class="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a href="/" class="hover:text-foreground">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-foreground">Install</li>
+          </ol>
+        </nav>
+        <div class="mb-4 flex flex-wrap items-center gap-2">
+          <span class={cn(badgeVariants({ variant: 'secondary' }), 'gap-1.5')}>
+            <Icon name="rocket" size={12} />
+            <span data-install-latest>{latest.tag}</span>
+          </span>
+          <span class={cn(badgeVariants({ variant: 'outline' }), 'gap-1.5')}>
+            SEO · GEO · HowTo
+          </span>
+        </div>
+        <h1 class="max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+          {INSTALL.title}
+        </h1>
+        <p id="install-intro" class="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+          {INSTALL.intro}
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a class={cn(buttonVariants({ size: 'lg' }), 'min-h-11')} href="#docker">
+            <Icon name="container" size={16} /> Docker quickstart
+          </a>
+          <a
+            class={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'min-h-11')}
+            href={latest.url}
+            target="_blank"
+            rel="noreferrer"
+            data-install-release-link
+          >
+            <Icon name="github" size={16} /> Release notes
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-page grid gap-12 py-14 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16 lg:py-20">
+      <aside class="lg:sticky lg:top-24 lg:self-start">
+        <p class="mb-3 text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">On this page</p>
+        <nav aria-label="Install sections">
+          <ul class="space-y-2 text-sm">
+            <li><a class="text-muted-foreground hover:text-foreground" href="#versions">Versions</a></li>
+            <li><a class="text-muted-foreground hover:text-foreground" href="#prerequisites">Prerequisites</a></li>
+            <li><a class="text-muted-foreground hover:text-foreground" href="#env">Environment</a></li>
+            <li><a class="text-muted-foreground hover:text-foreground" href="#docker">Docker</a></li>
+            <li><a class="text-muted-foreground hover:text-foreground" href="#compose">Compose</a></li>
+            <li><a class="text-muted-foreground hover:text-foreground" href="#verify">Verify</a></li>
+            <li><a class="text-muted-foreground hover:text-foreground" href="#routes">Routes</a></li>
+            <li><a class="text-muted-foreground hover:text-foreground" href="#platforms">Platforms</a></li>
+            <li><a class="text-muted-foreground hover:text-foreground" href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+        <p class="mt-6 text-xs leading-relaxed text-muted-foreground">
+          Machine-readable: <a class="underline-offset-4 hover:underline" href="/llms-install.txt">/llms-install.txt</a>
+        </p>
+      </aside>
+
+      <div class="min-w-0 space-y-16" data-api={API_BASE} data-repo-url={REPO_URL} id="install-root">
+        <section id="versions" aria-labelledby="versions-heading">
+          <h2 id="versions-heading" class="text-2xl font-semibold tracking-tight">Live versions</h2>
+          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Tags are fetched from <a href={`${REPO_URL}/tags`} class="font-medium text-foreground underline-offset-4 hover:underline" target="_blank" rel="noreferrer">{REPO_URL.replace('https://','')}/tags</a> at build time and refreshed in the browser.
+          </p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <div class="border border-border p-5">
+              <p class="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">Latest release</p>
+              <p class="mt-2 font-mono text-3xl font-semibold" data-install-latest>{latest.tag}</p>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Image: <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">{GHCR_IMAGE}:<span data-install-latest>{latest.tag}</span></code>
+              </p>
+            </div>
+            <div class="border border-border p-5">
+              <p class="mb-3 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">Recent tags</p>
+              <div data-install-tags class="flex flex-wrap gap-2">
+                {tags.map((t) => (
+                  <a
+                    href={t.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    class={cn(badgeVariants({ variant: 'outline' }), 'h-auto gap-1.5 px-3 py-1.5 font-mono')}
+                  >
+                    <Icon name="tag" size={12} /> {t.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="prerequisites" aria-labelledby="prereq-heading">
+          <h2 id="prereq-heading" class="text-2xl font-semibold tracking-tight">Prerequisites</h2>
+          <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+            {INSTALL.prerequisites.map((p) => (
+              <li class="border border-border p-5">
+                <h3 class="text-sm font-semibold">{p.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="env" aria-labelledby="env-heading">
+          <h2 id="env-heading" class="text-2xl font-semibold tracking-tight">Required environment</h2>
+          <div class="mt-6 overflow-x-auto border border-border">
+            <table class="w-full min-w-[36rem] text-left text-sm">
+              <thead class="border-b border-border bg-muted/40 text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                <tr>
+                  <th class="px-4 py-3 font-medium">Variable</th>
+                  <th class="px-4 py-3 font-medium">Required</th>
+                  <th class="px-4 py-3 font-medium">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {INSTALL.envRequired.map((row) => (
+                  <tr class="border-b border-border last:border-0">
+                    <td class="px-4 py-3 font-mono text-xs text-foreground">{row.name}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.required ? 'yes' : 'no'}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.notes}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-6 grid gap-4 lg:grid-cols-2">
+            <div class="border border-border bg-muted/30 p-4">
+              <p class="mb-2 text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">SMTP</p>
+              <pre class="overflow-x-auto font-mono text-xs leading-6 text-muted-foreground"><code>SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=no-reply@example.com
+SMTP_PASS=...
+SMTP_FROM=no-reply@example.com</code></pre>
+            </div>
+            <div class="border border-border bg-muted/30 p-4">
+              <p class="mb-2 text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">Mailgun</p>
+              <pre class="overflow-x-auto font-mono text-xs leading-6 text-muted-foreground"><code>MAILGUN_DOMAIN=mg.example.com
+MAILGUN_API_KEY=...
+SMTP_FROM=no-reply@example.com</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="docker" aria-labelledby="docker-heading">
+          <h2 id="docker-heading" class="text-2xl font-semibold tracking-tight">Local Docker</h2>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Replace the image tag with the live release shown above.
+          </p>
+          <pre class="mt-6 overflow-x-auto border border-border bg-muted/30 p-5 font-mono text-xs leading-6 text-muted-foreground"><code>docker network create zetta || true
+
+docker run -d --name zetta-mysql --network zetta \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  -e MYSQL_DATABASE=crmagents \
+  -e MYSQL_USER=crmagents \
+  -e MYSQL_PASSWORD=crmagentspass \
+  -v zetta-mysql:/var/lib/mysql \
+  mysql:8
+
+docker run -d --name zetta-crm --network zetta \
+  -p 8080:8080 \
+  -e MCP_API_KEY='change-me-long-random' \
+  -e BASE_URL='http://localhost:8080' \
+  -e DB_DSN='crmagents:crmagentspass@tcp(zetta-mysql:3306)/crmagents?parseTime=true&multiStatements=true' \
+  -v zetta-exports:/data/exports \
+  {GHCR_IMAGE}:<span data-install-latest>{latest.tag}</span></code></pre>
+        </section>
+
+        <section id="compose" aria-labelledby="compose-heading">
+          <h2 id="compose-heading" class="text-2xl font-semibold tracking-tight">Docker Compose</h2>
+          <pre class="mt-6 overflow-x-auto border border-border bg-muted/30 p-5 font-mono text-xs leading-6 text-muted-foreground"><code>services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: crmagents
+      MYSQL_USER: crmagents
+      MYSQL_PASSWORD: crmagentspass
+    volumes:
+      - mysql:/var/lib/mysql
+
+  zetta-crm:
+    image: {GHCR_IMAGE}:<span data-install-latest>{latest.tag}</span>
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      MCP_API_KEY: change-me-long-random
+      BASE_URL: http://localhost:8080
+      DB_DSN: crmagents:crmagentspass@tcp(mysql:3306)/crmagents?parseTime=true&multiStatements=true
+      EXPORT_DIR: /data/exports
+    volumes:
+      - exports:/data/exports
+
+volumes:
+  mysql:
+  exports:</code></pre>
+        </section>
+
+        <section id="verify" aria-labelledby="verify-heading">
+          <h2 id="verify-heading" class="text-2xl font-semibold tracking-tight">Verify</h2>
+          <pre class="mt-6 overflow-x-auto border border-border bg-muted/30 p-5 font-mono text-xs leading-6 text-muted-foreground"><code>curl -fsS http://localhost:8080/healthz
+
+# MCP client
+MCP_URL=http://localhost:8080/mcp
+Authorization: Bearer change-me-long-random</code></pre>
+          <p class="mt-4 text-sm text-muted-foreground">
+            Authenticate <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">POST /mcp</code> with either <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">Authorization: Bearer</code> or <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">X-API-Key</code>.
+          </p>
+        </section>
+
+        <section id="routes" aria-labelledby="routes-heading">
+          <h2 id="routes-heading" class="text-2xl font-semibold tracking-tight">Reverse proxy routes</h2>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Terminate TLS at your platform/proxy and set <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">BASE_URL=https://your-domain.example</code>.
+          </p>
+          <div class="mt-6 overflow-x-auto border border-border">
+            <table class="w-full min-w-[36rem] text-left text-sm">
+              <thead class="border-b border-border bg-muted/40 text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                <tr>
+                  <th class="px-4 py-3 font-medium">Route</th>
+                  <th class="px-4 py-3 font-medium">Auth</th>
+                  <th class="px-4 py-3 font-medium">Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                {INSTALL.routes.map((r) => (
+                  <tr class="border-b border-border last:border-0">
+                    <td class="px-4 py-3 font-mono text-xs text-foreground">{r.path}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{r.auth}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{r.purpose}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="platforms" aria-labelledby="platforms-heading">
+          <h2 id="platforms-heading" class="text-2xl font-semibold tracking-tight">Platform guides</h2>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Deep dives live in the <a href={WIKI_URL} class="font-medium text-foreground underline-offset-4 hover:underline" target="_blank" rel="noreferrer">GitHub wiki</a>. Use a tagged release image, not <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">:master</code>, in production.
+          </p>
+          <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {INSTALL.platforms.map((p) => (
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                class="flex items-center gap-2.5 border border-border px-3.5 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <Icon name={p.icon as any} size={16} />
+                {p.label}
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="faq" aria-labelledby="faq-heading">
+          <h2 id="faq-heading" class="text-2xl font-semibold tracking-tight">FAQ</h2>
+          <div class="mt-6 space-y-4">
+            {INSTALL.faq.map((item) => (
+              <details class="border border-border p-5 open:bg-muted/20">
+                <summary class="cursor-pointer text-sm font-semibold tracking-tight text-foreground">
+                  {item.q}
+                </summary>
+                <p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {item.a.replace(/v0\.7\.1/g, latest.tag)}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section class="border border-border bg-muted/20 p-6 sm:p-8">
+          <h2 class="text-xl font-semibold tracking-tight">Next</h2>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Connect your agent to <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">POST /mcp</code>, then explore contacts, campaigns, and channels.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a class={cn(buttonVariants())} href="/">
+              Back to product
+            </a>
+            <a class={cn(buttonVariants({ variant: 'outline' }))} href={WIKI_URL} target="_blank" rel="noreferrer">
+              Full wiki
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  const root = document.getElementById('install-root');
+  if (root) {
+    const api = root.dataset.api!;
+    const repoUrl = root.dataset.repoUrl!;
+    const text = (sel: string, value: string) => {
+      document.querySelectorAll<HTMLElement>(sel).forEach((el) => (el.textContent = value));
+    };
+
+    const refresh = async () => {
+      try {
+        const [relRes, tagsRes] = await Promise.all([
+          fetch(`${api}/releases/latest`),
+          fetch(`${api}/tags`),
+        ]);
+
+        if (relRes.ok) {
+          const rel = await relRes.json();
+          if (rel?.tag_name) {
+            text('[data-install-latest]', rel.tag_name);
+            const link = document.querySelector<HTMLAnchorElement>('[data-install-release-link]');
+            if (link && rel.html_url) link.href = rel.html_url;
+          }
+        }
+
+        if (tagsRes.ok) {
+          const tags = await tagsRes.json();
+          const list = document.querySelector<HTMLElement>('[data-install-tags]');
+          if (list && Array.isArray(tags) && tags.length) {
+            list.innerHTML = tags
+              .slice(0, 8)
+              .map((t: { name: string }) => {
+                const href = `${repoUrl}/releases/tag/${t.name}`;
+                return `<a href="${href}" target="_blank" rel="noreferrer" class="inline-flex h-auto w-fit shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-4xl border border-border px-3 py-1.5 font-mono text-xs font-medium whitespace-nowrap transition-all hover:bg-muted hover:text-muted-foreground"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>${t.name}</a>`;
+              })
+              .join('');
+          }
+        }
+      } catch {
+        /* keep build-time values */
+      }
+    };
+
+    refresh();
+  }
+</script>

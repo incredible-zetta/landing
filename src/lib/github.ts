@@ -35,21 +35,27 @@ export interface RepoMeta {
 }
 
 // Static fallback — used when the API is unavailable during build.
+// Keep roughly current with https://github.com/incredible-zetta/crm/tags
 const FALLBACK: RepoMeta = {
   latest: {
-    tag: 'v0.3.0',
-    name: 'v0.3.0',
-    url: `${REPO_URL}/releases/tag/v0.3.0`,
-    publishedAt: null,
+    tag: 'v0.7.1',
+    name: 'v0.7.1',
+    url: `${REPO_URL}/releases/tag/v0.7.1`,
+    publishedAt: '2026-07-02T09:20:16Z',
   },
   tags: [
+    { name: 'v0.7.1', url: `${REPO_URL}/releases/tag/v0.7.1` },
+    { name: 'v0.7.0', url: `${REPO_URL}/releases/tag/v0.7.0` },
+    { name: 'v0.6.0', url: `${REPO_URL}/releases/tag/v0.6.0` },
+    { name: 'v0.5.0', url: `${REPO_URL}/releases/tag/v0.5.0` },
+    { name: 'v0.4.0', url: `${REPO_URL}/releases/tag/v0.4.0` },
     { name: 'v0.3.0', url: `${REPO_URL}/releases/tag/v0.3.0` },
-    { name: 'v0.2.0', url: `${REPO_URL}/releases/tag/v0.2.0` },
-    { name: 'v0.1.4', url: `${REPO_URL}/releases/tag/v0.1.4` },
   ],
   stars: 0,
   live: false,
 };
+
+export const GHCR_IMAGE = `ghcr.io/${REPO_SLUG}`;
 
 const headers: Record<string, string> = {
   Accept: 'application/vnd.github+json',

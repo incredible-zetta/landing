@@ -4,16 +4,53 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  /** Optional JSON-LD graph objects merged into page schema */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  ogType?: string;
+  path?: string;
 }
 
 const {
   title = 'Zetta CRM — Self-hosted CRM for AI agents',
-  description = 'Self-hosted Go MCP server with 75 tools: contacts, email, campaigns, inbox, WhatsApp, Threads, LinkedIn, tracking, scheduling, and analytics. One binary, one MySQL database, one Docker image.',
+  description = 'Self-hosted Go MCP server with 75 tools: contacts, email, campaigns, inbox, WhatsApp, Threads, LinkedIn, X, tracking, scheduling, and analytics. One binary, one MySQL database, one Docker image.',
+  jsonLd,
+  ogType = 'website',
+  path,
 } = Astro.props;
 
 const site = 'https://zettacrm.com';
 const ogImage = `${site}/og.png`;
-const canonical = Astro.url.href;
+const canonical = path ? new URL(path, site).href : Astro.url.href;
+
+const softwareLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Zetta CRM',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Linux, Docker',
+  description,
+  url: site,
+  image: ogImage,
+  author: {
+    '@type': 'Organization',
+    name: 'Incredible Zetta',
+    url: 'https://github.com/incredible-zetta',
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  license: 'https://opensource.org/licenses/MIT',
+};
+
+const extra = jsonLd
+  ? Array.isArray(jsonLd)
+    ? jsonLd
+    : [jsonLd]
+  : [];
+
+const schema = [softwareLd, ...extra];
 ---
 
 <!doctype html>
@@ -25,16 +62,20 @@ const canonical = Astro.url.href;
     <link rel="icon" type="image/png" sizes="32x32" href="/zetta-mark.png" />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
+    <link rel="alternate" type="text/plain" href="/llms-install.txt" title="Install LLMs.txt" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="CRM, AI agents, MCP, self-hosted, open-source, Go, contacts, email, campaigns, WhatsApp, Threads, LinkedIn, Model Context Protocol" />
+    <meta name="keywords" content="CRM, AI agents, MCP, self-hosted, open-source, Go, Docker, install, contacts, email, campaigns, WhatsApp, Threads, LinkedIn, Model Context Protocol, GHCR" />
     <meta name="author" content="Incredible Zetta" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="geo.region" content="ID" />
+    <meta name="geo.placename" content="Indonesia" />
+    <meta name="language" content="en" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
@@ -49,27 +90,7 @@ const canonical = Astro.url.href;
     <meta name="twitter:image" content={ogImage} />
 
     <!-- JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Zetta CRM",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Linux, Docker",
-      "description": description,
-      "url": site,
-      "image": ogImage,
-      "author": {
-        "@type": "Organization",
-        "name": "Incredible Zetta",
-        "url": "https://github.com/incredible-zetta"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "license": "https://opensource.org/licenses/MIT"
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema.length === 1 ? schema[0] : schema)} />
 
     <!-- Apply stored theme before paint. Default: light. -->
     <script is:inline>

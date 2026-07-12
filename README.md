@@ -61,11 +61,11 @@ Deployed automatically via Cloudflare Pages on push to `main`.
 
 ```
 src/
-├── components/     # Landing sections + ui/ (shadcn)
-├── layouts/        # BaseLayout with SEO meta + llms.txt link
-├── lib/            # Content (data.ts), GitHub meta, Icon renderer
-├── pages/          # index.astro, llms.txt.ts (GEO)
-└── styles/         # global.css (default shadcn tokens)
+├── components/     # Landing sections + ScrollMotion + ui/ (shadcn)
+├── layouts/        # BaseLayout with SEO meta + JSON-LD + llms links
+├── lib/            # Content (data.ts), GitHub meta, llms.txt generators
+├── pages/          # index, install, llms.txt, llms-install.txt
+└── styles/         # global.css (shadcn tokens + atmosphere/motion)
 public/             # Logos, OG image, robots.txt
 ```
 
@@ -73,12 +73,15 @@ public/             # Logos, OG image, robots.txt
 
 - **Theme**: Default shadcn neutral (light default, dark toggle)
 - **Typography**: Geist Variable
+- **Motion**: GSAP ScrollTrigger (reveals, parallax, marquee, stacking)
 - **UI**: Button, Badge, Card, Separator, Sheet, ThemeToggle
 
 ## Related
 
-- [Zetta CRM Backend](https://github.com/incredible-zetta/crm) — Go MCP server (28 tools)
+- [Zetta CRM Backend](https://github.com/incredible-zetta/crm) — Go MCP server (75 tools)
 - [Ciptadusa](https://github.com/cds-id) — Partner organization
+- [Install page](https://zettacrm.com/install) — SEO/GEO install guide with live tags
+- [llms.txt](https://zettacrm.com/llms.txt) / [llms-install.txt](https://zettacrm.com/llms-install.txt)
 
 ## License
 

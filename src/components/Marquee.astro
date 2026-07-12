@@ -1,0 +1,16 @@
+---
+import { MARQUEE } from '../lib/data';
+---
+
+<section class="border-b border-border bg-muted/30 py-5 overflow-hidden" aria-label="Capabilities">
+  <div class="relative">
+    <div data-marquee-track class="flex w-max gap-10 whitespace-nowrap will-change-transform">
+      {[...MARQUEE, ...MARQUEE].map((item) => (
+        <span class="inline-flex items-center gap-10 text-sm font-medium tracking-tight text-muted-foreground">
+          <span class="text-foreground">{item}</span>
+          <span class="size-1.5 rounded-full bg-foreground/30" aria-hidden="true"></span>
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

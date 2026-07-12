@@ -1,8 +1,7 @@
 ---
 import Icon from '../lib/Icon.astro';
-import { getRepoMeta, WIKI_GUIDES, REPO_SLUG, REPO_URL, WIKI_URL, API_BASE } from '../lib/github';
+import { getRepoMeta, WIKI_GUIDES, REPO_SLUG, REPO_URL, WIKI_URL, API_BASE, GHCR_IMAGE } from '../lib/github';
 import { badgeVariants } from '~/components/ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
 import { cn } from '~/lib/utils';
 
 const { latest, tags, stars } = await getRepoMeta();
@@ -11,58 +10,55 @@ const fmtDate = (iso: string | null) =>
   iso ? new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
 ---
 
-<section id="releases" class="container-page py-16" data-repo-slug={REPO_SLUG} data-api={API_BASE} data-repo-url={REPO_URL}>
-  <div class="mb-8 max-w-2xl">
-    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">Releases &amp; docs</h2>
-    <p class="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
-      Live from{' '}
-      <a href={REPO_URL} target="_blank" rel="noreferrer" class="font-medium text-foreground underline-offset-4 hover:underline">
-        {REPO_SLUG}
-      </a>
-      . Tags refresh on every visit.
-    </p>
-  </div>
-
-  <div class="grid gap-4 lg:grid-cols-2">
-    <a
-      href={latest.url}
-      target="_blank"
-      rel="noreferrer"
-      data-latest-link
-      class="group block transition-opacity hover:opacity-95"
-    >
-      <Card className="h-full transition-colors group-hover:bg-muted/30">
-        <CardHeader className="gap-3">
-          <span class={cn(badgeVariants({ variant: 'secondary' }), 'w-fit gap-1.5')}>
-            <Icon name="rocket" size={12} /> Latest release
-          </span>
-          <div class="flex flex-wrap items-baseline gap-3">
-            <CardTitle className="font-mono text-2xl" data-latest-tag>{latest.tag}</CardTitle>
-            <span data-latest-date class="text-xs text-muted-foreground">{fmtDate(latest.publishedAt)}</span>
-          </div>
-          <CardDescription className="text-sm leading-relaxed">
-            Pull <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">ghcr.io/incredible-zetta/crm:<span data-latest-tag-inline>{latest.tag}</span></code> and point your agents at <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">/mcp</code>.
-          </CardDescription>
-        </CardHeader>
-        <CardFooter className="justify-start gap-1.5 border-0 bg-transparent text-sm font-medium text-foreground">
-          Read release notes <Icon name="arrow-up-right" size={14} />
-        </CardFooter>
-      </Card>
-    </a>
-
-    <Card className="h-full">
-      <CardHeader className="flex-row items-center justify-between space-y-0">
-        <CardTitle>Recent tags</CardTitle>
-        <a
-          href={`${REPO_URL}/stargazers`}
-          target="_blank"
-          rel="noreferrer"
-          class="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
-        >
-          <Icon name="star" size={14} /> <span data-repo-stars>{stars}</span> stars
+<section id="releases" class="border-b border-border py-20 sm:py-24" data-repo-slug={REPO_SLUG} data-api={API_BASE} data-repo-url={REPO_URL}>
+  <div class="container-page">
+    <div class="mb-10 max-w-2xl">
+      <h2 data-reveal class="text-3xl font-semibold tracking-tight sm:text-4xl">Releases &amp; docs</h2>
+      <p data-reveal class="mt-3 text-base leading-relaxed text-muted-foreground">
+        Live from{' '}
+        <a href={REPO_URL} target="_blank" rel="noreferrer" class="font-medium text-foreground underline-offset-4 hover:underline">
+          {REPO_SLUG}
         </a>
-      </CardHeader>
-      <CardContent>
+        . Tags refresh on every visit.
+      </p>
+    </div>
+
+    <div class="grid gap-4 lg:grid-cols-2">
+      <a
+        href={latest.url}
+        target="_blank"
+        rel="noreferrer"
+        data-latest-link
+        data-reveal
+        class="group block border border-border bg-background p-6 transition-colors hover:bg-muted/40 sm:p-8"
+      >
+        <span class={cn(badgeVariants({ variant: 'secondary' }), 'mb-4 w-fit gap-1.5')}>
+          <Icon name="rocket" size={12} /> Latest release
+        </span>
+        <div class="mb-3 flex flex-wrap items-baseline gap-3">
+          <p class="font-mono text-3xl font-semibold tracking-tight" data-latest-tag>{latest.tag}</p>
+          <span data-latest-date class="text-xs text-muted-foreground">{fmtDate(latest.publishedAt)}</span>
+        </div>
+        <p class="text-sm leading-relaxed text-muted-foreground">
+          Pull <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">{GHCR_IMAGE}:<span data-latest-tag-inline>{latest.tag}</span></code> and point your agents at <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">/mcp</code>.
+        </p>
+        <p class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
+          Read release notes <Icon name="arrow-up-right" size={14} />
+        </p>
+      </a>
+
+      <div data-reveal class="border border-border bg-background p-6 sm:p-8">
+        <div class="mb-5 flex items-center justify-between gap-3">
+          <h3 class="text-lg font-semibold tracking-tight">Recent tags</h3>
+          <a
+            href={`${REPO_URL}/stargazers`}
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
+          >
+            <Icon name="star" size={14} /> <span data-repo-stars>{stars}</span> stars
+          </a>
+        </div>
         <div data-tag-list class="flex flex-wrap gap-2">
           {tags.map((t) => (
             <a
@@ -75,46 +71,55 @@ const fmtDate = (iso: string | null) =>
             </a>
           ))}
         </div>
-      </CardContent>
-      <CardFooter className="justify-start">
         <a
           href={`${REPO_URL}/tags`}
           target="_blank"
           rel="noreferrer"
-          class="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
+          class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
         >
           All tags <Icon name="arrow-up-right" size={14} />
         </a>
-      </CardFooter>
-    </Card>
-  </div>
+      </div>
+    </div>
 
-  <h3 id="docs" class="mt-12 mb-4 text-sm font-semibold text-foreground">
-    Install guides <span class="font-normal text-muted-foreground">— from the wiki</span>
-  </h3>
-  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-    {WIKI_GUIDES.map((g) => (
+    <h3 id="docs" data-reveal class="mt-14 mb-4 text-sm font-semibold text-foreground">
+      Install guides <span class="font-normal text-muted-foreground">— wiki + on-site</span>
+    </h3>
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
       <a
-        href={g.href}
-        target="_blank"
-        rel="noreferrer"
-        class="flex items-center gap-2.5 rounded-xl bg-card px-3.5 py-3 text-sm font-medium text-muted-foreground ring-1 ring-foreground/10 transition-colors hover:bg-muted hover:text-foreground"
+        href="/install"
+        data-reveal
+        class="flex items-center gap-2.5 border border-border bg-background px-3.5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted"
       >
-        <span class="inline-flex size-5 shrink-0 items-center justify-center text-foreground">
-          <Icon name={g.icon as any} size={16} />
+        <span class="inline-flex size-5 shrink-0 items-center justify-center">
+          <Icon name="book-open" size={16} />
         </span>
-        {g.label}
+        Install page
       </a>
-    ))}
+      {WIKI_GUIDES.map((g) => (
+        <a
+          href={g.href}
+          target="_blank"
+          rel="noreferrer"
+          data-reveal
+          class="flex items-center gap-2.5 border border-border bg-background px-3.5 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <span class="inline-flex size-5 shrink-0 items-center justify-center text-foreground">
+            <Icon name={g.icon as any} size={16} />
+          </span>
+          {g.label}
+        </a>
+      ))}
+    </div>
+    <a
+      href={WIKI_URL}
+      target="_blank"
+      rel="noreferrer"
+      class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
+    >
+      Open full wiki <Icon name="arrow-up-right" size={14} />
+    </a>
   </div>
-  <a
-    href={WIKI_URL}
-    target="_blank"
-    rel="noreferrer"
-    class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
-  >
-    Open full wiki <Icon name="arrow-up-right" size={14} />
-  </a>
 </section>
 
 <script>

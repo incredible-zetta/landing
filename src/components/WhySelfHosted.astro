@@ -1,26 +1,25 @@
 ---
 import Icon from '../lib/Icon.astro';
 import { WHY } from '../lib/data';
-import { Card, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 ---
 
-<section id="why" class="container-page py-16">
-  <div class="mb-8 max-w-2xl">
-    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">Why self-hosted</h2>
-    <p class="mt-2 text-sm text-muted-foreground sm:text-base">
-      Privacy is architecture — not a marketing badge.
-    </p>
-  </div>
+<section class="border-b border-border py-20 sm:py-24">
+  <div class="container-page">
+    <div class="mb-10 max-w-2xl">
+      <h2 data-reveal class="text-3xl font-semibold tracking-tight sm:text-4xl">Why self-hosted</h2>
+      <p data-reveal class="mt-3 text-base text-muted-foreground">
+        Privacy is architecture — not a marketing badge.
+      </p>
+    </div>
 
-  <div class="grid gap-3 sm:grid-cols-3">
-    {WHY.map((w) => (
-      <Card size="sm" className="h-full">
-        <CardHeader>
-          <span class="mb-2 inline-flex size-9 items-center justify-center rounded-lg bg-muted text-foreground">
+    <div class="grid gap-4 sm:grid-cols-3">
+      {WHY.map((w) => (
+        <article data-reveal class="border border-border bg-background p-6">
+          <span class="mb-4 inline-flex size-10 items-center justify-center bg-muted text-foreground">
             <Icon name={w.icon as any} size={18} />
           </span>
-          <CardTitle>{w.title}</CardTitle>
-          <CardDescription className="text-pretty leading-relaxed">
+          <h3 class="mb-2 text-base font-semibold tracking-tight">{w.title}</h3>
+          <p class="text-sm leading-relaxed text-muted-foreground">
             {w.highlight ? (
               <>
                 <span class="font-medium text-foreground">{w.highlight}</span>{' '}
@@ -29,9 +28,9 @@ import { Card, CardDescription, CardHeader, CardTitle } from '~/components/ui/ca
             ) : (
               w.desc
             )}
-          </CardDescription>
-        </CardHeader>
-      </Card>
-    ))}
+          </p>
+        </article>
+      ))}
+    </div>
   </div>
 </section>

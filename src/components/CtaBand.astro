@@ -3,30 +3,29 @@ import Icon from '../lib/Icon.astro';
 import { CTA_BAND } from '../lib/data';
 import { getRepoMeta } from '../lib/github';
 import { buttonVariants } from '~/components/ui/button';
-import { Card, CardContent } from '~/components/ui/card';
 import { cn } from '~/lib/utils';
 
 const { latest } = await getRepoMeta();
 ---
 
-<section class="container-page pb-20">
-  <Card className="text-center">
-    <CardContent className="flex flex-col items-center px-6 py-12 sm:px-12">
-      <h2 class="mx-auto mb-3 max-w-2xl text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
-        {CTA_BAND.titleA}{' '}
-        <span class="text-muted-foreground">{CTA_BAND.titleGradient}</span>
-      </h2>
-      <p class="mx-auto mb-8 max-w-xl text-pretty text-sm text-muted-foreground sm:text-base">
-        {CTA_BAND.sub}
-      </p>
-      <div class="flex w-full max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center">
-        <a class={cn(buttonVariants({ size: 'lg' }), 'min-h-11 w-full sm:w-auto')} href={CTA_BAND.primary.href}>
-          <Icon name="rocket" size={16} /> {CTA_BAND.primary.label}
-        </a>
-        <a class={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'min-h-11 w-full sm:w-auto')} href={latest.url}>
-          <Icon name="book-open" size={16} /> Release {latest.tag}
-        </a>
-      </div>
-    </CardContent>
-  </Card>
+<section class="relative overflow-hidden py-24 sm:py-28">
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-atmosphere" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-grid-fade opacity-40" aria-hidden="true"></div>
+  <div class="container-page text-center">
+    <h2 data-reveal class="mx-auto mb-4 max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+      {CTA_BAND.titleA}{' '}
+      <span class="text-muted-foreground">{CTA_BAND.titleB}</span>
+    </h2>
+    <p data-reveal class="mx-auto mb-10 max-w-xl text-pretty text-base text-muted-foreground">
+      {CTA_BAND.sub}
+    </p>
+    <div data-reveal class="flex w-full max-w-sm flex-col gap-3 sm:mx-auto sm:max-w-none sm:flex-row sm:justify-center">
+      <a class={cn(buttonVariants({ size: 'lg' }), 'min-h-11 w-full sm:w-auto')} href={CTA_BAND.primary.href}>
+        <Icon name="rocket" size={16} /> {CTA_BAND.primary.label}
+      </a>
+      <a class={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'min-h-11 w-full sm:w-auto')} href={latest.url}>
+        <Icon name="book-open" size={16} /> Release {latest.tag}
+      </a>
+    </div>
+  </div>
 </section>

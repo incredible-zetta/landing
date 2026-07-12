@@ -1,64 +1,61 @@
 ---
 import Icon from '../lib/Icon.astro';
 import { DEPLOY_RAIL } from '../lib/data';
-import { getRepoMeta, WIKI_URL } from '../lib/github';
+import { getRepoMeta, GHCR_IMAGE } from '../lib/github';
 import { buttonVariants } from '~/components/ui/button';
 import { badgeVariants } from '~/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { cn } from '~/lib/utils';
 
 const { latest } = await getRepoMeta();
 ---
 
-<section id="deploy" class="container-page py-16">
-  <div class="mb-8 max-w-2xl">
-    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">
-      Deploy in one port
-    </h2>
-    <p class="mt-2 text-sm text-muted-foreground sm:text-base">
-      Single container, MySQL 8, API key, done. Built for EasyPanel and any Docker host.
-    </p>
-  </div>
+<section id="deploy" class="border-b border-border py-20 sm:py-24">
+  <div class="container-page">
+    <div class="mb-10 max-w-2xl">
+      <h2 data-reveal class="text-3xl font-semibold tracking-tight sm:text-4xl">
+        Deploy in one port
+      </h2>
+      <p data-reveal class="mt-3 text-base text-muted-foreground">
+        Single container, MySQL 8, API key, done. Built for EasyPanel and any Docker host.
+      </p>
+    </div>
 
-  <Card className="overflow-hidden">
-    <div class="grid lg:grid-cols-2">
-      <CardHeader className="gap-3 p-6 sm:p-8">
+    <div data-reveal class="grid overflow-hidden border border-border lg:grid-cols-2">
+      <div class="space-y-5 p-6 sm:p-8">
         <span class={cn(badgeVariants({ variant: 'secondary' }), 'w-fit gap-1.5')}>
           <Icon name="rocket" size={12} /> {latest.tag}
         </span>
-        <CardTitle className="text-xl sm:text-2xl">
+        <h3 class="text-xl font-semibold tracking-tight sm:text-2xl">
           Pull the GHCR image and point agents at <code class="font-mono text-[0.9em]">/mcp</code>.
-        </CardTitle>
-        <CardDescription className="max-w-prose text-sm leading-relaxed">
+        </h3>
+        <p class="max-w-prose text-sm leading-relaxed text-muted-foreground">
           Set <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">MCP_API_KEY</code>, <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">DB_DSN</code>, and <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">BASE_URL</code>. Authenticate with Bearer or X-API-Key.
-        </CardDescription>
-        <div class="mt-2 flex flex-wrap gap-2">
-          <a href={WIKI_URL} class={cn(buttonVariants())}>Install wiki</a>
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <a href="/install" class={cn(buttonVariants())}>Install guide</a>
           <a href={latest.url} class={cn(buttonVariants({ variant: 'outline' }))}>Release notes</a>
         </div>
-      </CardHeader>
-      <CardContent className="border-t border-border bg-muted/30 p-0 lg:border-l lg:border-t-0">
-        <pre class="overflow-x-auto p-6 font-mono text-xs leading-6 text-muted-foreground sm:p-8"><code>docker pull ghcr.io/incredible-zetta/crm:{latest.tag}
+      </div>
+      <div class="border-t border-border bg-muted/40 lg:border-l lg:border-t-0">
+        <pre class="overflow-x-auto p-6 font-mono text-xs leading-6 text-muted-foreground sm:p-8"><code>docker pull {GHCR_IMAGE}:{latest.tag}
 
 MCP_URL=https://crm.example.com/mcp
 Authorization: Bearer $MCP_API_KEY</code></pre>
-      </CardContent>
+      </div>
     </div>
-  </Card>
 
-  <div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-    {DEPLOY_RAIL.map((r) => (
-      <Card size="sm">
-        <CardHeader className="flex-row items-center gap-3 space-y-0">
-          <span class="inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground">
+    <div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      {DEPLOY_RAIL.map((r) => (
+        <div data-reveal class="flex items-center gap-3 border border-border bg-background p-4">
+          <span class="inline-flex size-8 shrink-0 items-center justify-center bg-muted text-foreground">
             <Icon name={r.icon as any} size={16} />
           </span>
           <div class="min-w-0">
-            <CardTitle className="text-sm">{r.title}</CardTitle>
-            <CardDescription>{r.sub}</CardDescription>
+            <p class="text-sm font-medium text-foreground">{r.title}</p>
+            <p class="text-xs text-muted-foreground">{r.sub}</p>
           </div>
-        </CardHeader>
-      </Card>
-    ))}
+        </div>
+      ))}
+    </div>
   </div>
 </section>
